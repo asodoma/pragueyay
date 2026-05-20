@@ -1,3 +1,8 @@
+:root {
+  --ink: #111;
+  --bg:  #fff;
+}
+
 *, *::before, *::after {
   box-sizing: border-box;
   margin: 0;
@@ -5,9 +10,9 @@
 }
 
 body {
-  font-family: 'Inter', -apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif;
-  background: #fff;
-  color: #111;
+  font-family: 'Inter', -apple-system, BlinkMacSystemFont, sans-serif;
+  background: var(--bg);
+  color: var(--ink);
   -webkit-font-smoothing: antialiased;
   min-height: 100vh;
 }
@@ -18,26 +23,47 @@ body {
   padding: 0 32px;
 }
 
-/* ─── Header ─────────────────────────────────────── */
+/* ─── Logo ───────────────────────────────────────── */
 
 header {
-  padding-top: 64px;
+  padding-top: 56px;
   text-align: center;
 }
 
-h1 {
-  font-size: 3rem;
-  font-weight: 300;
-  letter-spacing: -1.5px;
-  line-height: 1;
+.logo {
+  display: inline-flex;
+  align-items: center;
+  gap: 20px;
 }
 
-.subtitle {
-  margin-top: 8px;
-  font-size: 0.75rem;
-  letter-spacing: 3px;
-  text-transform: uppercase;
-  color: #bbb;
+.logo-mark {
+  display: flex;
+  gap: 5px;
+}
+
+.logo-panel {
+  background: #D7141A;
+  padding: 8px 11px;
+  display: flex;
+  flex-direction: column;
+}
+
+.logo-panel span {
+  display: block;
+  color: #F5C518;
+  font-family: 'Inter', sans-serif;
+  font-weight: 700;
+  font-size: 20px;
+  line-height: 1.18;
+  letter-spacing: 0.5px;
+}
+
+.logo-yay {
+  font-family: 'Crimson Text', Georgia, serif;
+  font-style: italic;
+  font-size: 76px;
+  line-height: 1;
+  color: var(--ink);
 }
 
 /* ─── Navigation ─────────────────────────────────── */
@@ -46,7 +72,7 @@ nav {
   display: flex;
   justify-content: center;
   flex-wrap: wrap;
-  margin-top: 48px;
+  margin-top: 40px;
   border-top: 1px solid #e8e8e8;
   border-bottom: 1px solid #e8e8e8;
 }
@@ -70,95 +96,165 @@ nav {
   left: 14px;
   right: 14px;
   height: 1px;
-  background: #111;
+  background: var(--ink);
   transform: scaleX(0);
   transform-origin: center;
   transition: transform 0.2s ease;
 }
 
-.nav-link:hover {
-  color: #111;
-}
-
-.nav-link.active {
-  color: #111;
-}
-
+.nav-link:hover              { color: var(--ink); }
+.nav-link.active             { color: var(--ink); }
 .nav-link.active::after,
-.nav-link:hover::after {
-  transform: scaleX(1);
-}
+.nav-link:hover::after       { transform: scaleX(1); }
 
-/* ─── Gallery Sections ───────────────────────────── */
+/* ─── Gallery sections ───────────────────────────── */
 
 .gallery-section {
-  padding: 56px 0 96px;
+  padding-top: 48px;
+  padding-bottom: 64px;
 }
 
 .gallery-section.hidden {
   display: none;
 }
 
-.gallery {
+/* ─── Gallery canvas ─────────────────────────────── */
+
+.gallery-canvas {
+  position: relative;
+  width: 100%;
+  height: 760px;
+}
+
+/* ─── Window cards ───────────────────────────────── */
+
+.win {
+  position: absolute;
+  border: 1px solid var(--ink);
+  background: var(--bg);
+  user-select: none;
+  transition: box-shadow 0.12s ease;
+}
+
+.win.dragging,
+.win:hover {
+  box-shadow: 4px 4px 0 var(--ink);
+}
+
+/* Title bar — drag handle */
+.win-bar {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: 5px 8px 5px 10px;
+  border-bottom: 1px solid var(--ink);
+  cursor: grab;
+  font-family: 'Roboto Mono', monospace;
+  font-size: 11px;
+  letter-spacing: 0.06em;
+  text-transform: uppercase;
+}
+.win-bar:active { cursor: grabbing; }
+
+/* 3×3 grip dots */
+.win-bar-dots {
   display: grid;
-  grid-template-columns: repeat(3, 1fr);
-  gap: 24px;
+  grid-template-columns: repeat(3, 3px);
+  gap: 2px;
+  opacity: 0.35;
+  flex-shrink: 0;
+  margin-left: 10px;
+}
+.win-bar-dots span {
+  width: 3px;
+  height: 3px;
+  background: var(--ink);
+  border-radius: 50%;
 }
 
-/* ─── Cards ──────────────────────────────────────── */
-
-.card {
-  cursor: default;
+.win-body {
+  line-height: 0;
 }
 
-.card-img {
+.win-body img {
+  display: block;
+  width: 100%;
+  height: auto;
+  pointer-events: none;
+}
+
+/* Placeholder shown before real images are added */
+.win-placeholder {
   width: 100%;
   aspect-ratio: 3 / 2;
-  border-radius: 4px;
   background-color: #f4f4f4;
   background-image: repeating-linear-gradient(
     -45deg,
-    transparent 0px,
-    transparent 10px,
-    #ececec 10px,
-    #ececec 11px
+    transparent      0,
+    transparent      10px,
+    #e8e8e8          10px,
+    #e8e8e8          11px
   );
-  transition: transform 0.2s ease, box-shadow 0.2s ease;
-  overflow: hidden;
 }
 
-.card-img img {
-  width: 100%;
-  height: 100%;
-  object-fit: cover;
-  display: block;
-  border-radius: 4px;
+/* ─── Hover bubble ───────────────────────────────── */
+
+.win-bubble {
+  position: fixed;
+  z-index: 9999;
+  pointer-events: none;
+
+  width: 220px;
+  white-space: normal;
+
+  font-family: 'Roboto Mono', monospace;
+  font-size: 12px;
+  line-height: 1.55;
+  letter-spacing: 0.02em;
+  color: var(--ink);
+
+  padding: 10px 13px;
+  background: var(--bg);
+  border: 2px solid var(--ink);
+  box-shadow: 4px 4px 0 var(--ink);
+
+  opacity: 0;
+  transform: translateY(6px);
+  transition: opacity 0.16s ease, transform 0.16s ease;
 }
 
-.card:hover .card-img {
-  transform: translateY(-3px);
-  box-shadow: 0 12px 28px rgba(0, 0, 0, 0.09);
+/* Pixel-art tail pointing upward */
+.win-bubble::before {
+  content: '';
+  position: absolute;
+  background: var(--ink);
+  top: -8px;
+  left: 18px;
+  width: 2px;
+  height: 8px;
+}
+.win-bubble::after {
+  content: '';
+  position: absolute;
+  background: var(--ink);
+  top: -8px;
+  left: 14px;
+  width: 6px;
+  height: 2px;
 }
 
-.card-label {
-  margin-top: 10px;
-  font-size: 0.82rem;
-  color: #666;
-  letter-spacing: 0.2px;
+.win-bubble.visible {
+  opacity: 1;
+  transform: translateY(0);
 }
 
 /* ─── Responsive ─────────────────────────────────── */
 
 @media (max-width: 680px) {
-  h1 {
-    font-size: 2.2rem;
-    letter-spacing: -1px;
-  }
+  .logo-panel span { font-size: 15px; }
+  .logo-yay        { font-size: 54px; }
 
-  .gallery {
-    grid-template-columns: repeat(2, 1fr);
-    gap: 16px;
-  }
+  .gallery-canvas  { height: 900px; }
 
   .nav-link {
     padding: 12px 9px;
@@ -166,11 +262,6 @@ nav {
     letter-spacing: 1.2px;
   }
 
-  .container {
-    padding: 0 20px;
-  }
-
-  header {
-    padding-top: 40px;
-  }
+  .container   { padding: 0 20px; }
+  header       { padding-top: 40px; }
 }
