@@ -1,0 +1,176 @@
+*, *::before, *::after {
+  box-sizing: border-box;
+  margin: 0;
+  padding: 0;
+}
+
+body {
+  font-family: 'Inter', -apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif;
+  background: #fff;
+  color: #111;
+  -webkit-font-smoothing: antialiased;
+  min-height: 100vh;
+}
+
+.container {
+  max-width: 900px;
+  margin: 0 auto;
+  padding: 0 32px;
+}
+
+/* ─── Header ─────────────────────────────────────── */
+
+header {
+  padding-top: 64px;
+  text-align: center;
+}
+
+h1 {
+  font-size: 3rem;
+  font-weight: 300;
+  letter-spacing: -1.5px;
+  line-height: 1;
+}
+
+.subtitle {
+  margin-top: 8px;
+  font-size: 0.75rem;
+  letter-spacing: 3px;
+  text-transform: uppercase;
+  color: #bbb;
+}
+
+/* ─── Navigation ─────────────────────────────────── */
+
+nav {
+  display: flex;
+  justify-content: center;
+  flex-wrap: wrap;
+  margin-top: 48px;
+  border-top: 1px solid #e8e8e8;
+  border-bottom: 1px solid #e8e8e8;
+}
+
+.nav-link {
+  display: inline-block;
+  padding: 16px 14px;
+  font-size: 0.68rem;
+  letter-spacing: 1.8px;
+  text-transform: uppercase;
+  text-decoration: none;
+  color: #aaa;
+  position: relative;
+  transition: color 0.15s ease;
+}
+
+.nav-link::after {
+  content: '';
+  position: absolute;
+  bottom: -1px;
+  left: 14px;
+  right: 14px;
+  height: 1px;
+  background: #111;
+  transform: scaleX(0);
+  transform-origin: center;
+  transition: transform 0.2s ease;
+}
+
+.nav-link:hover {
+  color: #111;
+}
+
+.nav-link.active {
+  color: #111;
+}
+
+.nav-link.active::after,
+.nav-link:hover::after {
+  transform: scaleX(1);
+}
+
+/* ─── Gallery Sections ───────────────────────────── */
+
+.gallery-section {
+  padding: 56px 0 96px;
+}
+
+.gallery-section.hidden {
+  display: none;
+}
+
+.gallery {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 24px;
+}
+
+/* ─── Cards ──────────────────────────────────────── */
+
+.card {
+  cursor: default;
+}
+
+.card-img {
+  width: 100%;
+  aspect-ratio: 3 / 2;
+  border-radius: 4px;
+  background-color: #f4f4f4;
+  background-image: repeating-linear-gradient(
+    -45deg,
+    transparent 0px,
+    transparent 10px,
+    #ececec 10px,
+    #ececec 11px
+  );
+  transition: transform 0.2s ease, box-shadow 0.2s ease;
+  overflow: hidden;
+}
+
+.card-img img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  display: block;
+  border-radius: 4px;
+}
+
+.card:hover .card-img {
+  transform: translateY(-3px);
+  box-shadow: 0 12px 28px rgba(0, 0, 0, 0.09);
+}
+
+.card-label {
+  margin-top: 10px;
+  font-size: 0.82rem;
+  color: #666;
+  letter-spacing: 0.2px;
+}
+
+/* ─── Responsive ─────────────────────────────────── */
+
+@media (max-width: 680px) {
+  h1 {
+    font-size: 2.2rem;
+    letter-spacing: -1px;
+  }
+
+  .gallery {
+    grid-template-columns: repeat(2, 1fr);
+    gap: 16px;
+  }
+
+  .nav-link {
+    padding: 12px 9px;
+    font-size: 0.62rem;
+    letter-spacing: 1.2px;
+  }
+
+  .container {
+    padding: 0 20px;
+  }
+
+  header {
+    padding-top: 40px;
+  }
+}
