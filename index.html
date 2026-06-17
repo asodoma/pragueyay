@@ -114,16 +114,22 @@
       // ── CZ Food (3 even rows: 3 / 3 / 2) ───────────────────────────────
       'cz-food': [
         // Row 1
-        { label: 'Svíčková',       src: 'assets/czechfood/svickova.png',                 w: 270, lp: 0.03, t:  22, r: -1.8, tip: 'Beef sirloin in vegetable-cream sauce with a dollop of cranberry — the national dish' },
-        { label: 'Goulash',        src: 'assets/czechfood/goulash.jpg',                  w: 255, lp: 0.37, t:  12, r:  1.5, tip: 'Slow-cooked Czech beef goulash served with bread dumplings' },
-        { label: 'Dill cream beef',src: 'assets/czechfood/dill-cream-beef.webp',         w: 252, lp: 0.68, t:  30, r: -2.0, tip: 'Braised beef in a silky dill-cream sauce — a Czech Sunday classic' },
+        { label: 'Svíčková',             src: 'assets/czechfood/svickova.png',                 w: 270, lp: 0.03, t:  22, r: -1.8,
+          url: 'https://en.wikipedia.org/wiki/Sv%C3%AD%C4%8Dkov%C3%A1' },
+        { label: 'Goulash',              src: 'assets/czechfood/goulash.jpg',                  w: 255, lp: 0.37, t:  12, r:  1.5,
+          url: 'https://en.wikipedia.org/wiki/Goulash' },
+        { label: 'Dill cream beef',      src: 'assets/czechfood/dill-cream-beef.webp',         w: 252, lp: 0.68, t:  30, r: -2.0 },
         // Row 2
-        { label: 'Smažený sýr',    src: 'assets/czechfood/smazeny-syr.jpg',              w: 258, lp: 0.03, t: 265, r:  2.2, tip: 'Fried cheese — a Czech institution, usually with tartar sauce' },
-        { label: 'Fried cheese triathlon', src: 'assets/czechfood/fried-cheese-triathlon.jpg', w: 252, lp: 0.37, t: 253, r: -1.5, tip: 'The full Czech triathlon: fried cheese + fries + potato salad, all on one plate' },
-        { label: 'Kofola',         src: 'assets/czechfood/kofola.jpg',                   w: 252, lp: 0.68, t: 268, r:  1.2, tip: 'The Czech answer to Coca-Cola — sweeter, less fizzy, unique herbal taste. Try it on draught!' },
+        { label: 'Smažený sýr',          src: 'assets/czechfood/smazeny-syr.jpg',              w: 258, lp: 0.03, t: 265, r:  2.2,
+          url: 'https://en.wikipedia.org/wiki/Sma%C5%BEen%C3%BD_s%C3%BDr' },
+        { label: 'Fried cheese triathlon',src: 'assets/czechfood/fried-cheese-triathlon.jpg',  w: 252, lp: 0.37, t: 253, r: -1.5 },
+        { label: 'Kofola',               src: 'assets/czechfood/kofola.jpg',                   w: 252, lp: 0.68, t: 268, r:  1.2,
+          url: 'https://en.wikipedia.org/wiki/Kofola' },
         // Row 3
-        { label: 'Ovocné knedlíky',src: 'assets/czechfood/fruit-dumplings.jpg',          w: 255, lp: 0.10, t: 508, r: -2.2, tip: 'Fruit-filled dumplings with melted butter, tvaroh (Czech curd), and sugar' },
-        { label: 'Řízek',          src: 'assets/czechfood/rizek.jpg',                    w: 258, lp: 0.58, t: 494, r:  1.8, tip: 'Czech schnitzel — breaded and fried pork, served with mash, boiled potatoes, or fries' },
+        { label: 'Ovocné knedlíky',      src: 'assets/czechfood/fruit-dumplings.jpg',          w: 255, lp: 0.10, t: 508, r: -2.2,
+          url: 'https://en.wikipedia.org/wiki/Ovocn%C3%A9_knedl%C3%ADky' },
+        { label: 'Řízek',                src: 'assets/czechfood/rizek.jpg',                    w: 258, lp: 0.58, t: 494, r:  1.8,
+          url: 'https://en.wikipedia.org/wiki/%C5%98%C3%ADzek' },
       ],
 
       // ── Activities ──────────────────────────────────────────────────────
@@ -259,11 +265,12 @@
         canvas.appendChild(win);
 
         // Drag
-        var dragging = false, startMX, startMY, startL, startT;
+        var dragging = false, didDrag = false, startMX, startMY, startL, startT;
         bar.addEventListener('mousedown', function (e) {
           if (e.button !== 0) return;
           e.preventDefault();
           dragging = true;
+          didDrag  = false;
           win.classList.add('dragging');
           win.style.zIndex = ++zTop;
           win.dataset.dragged = '1';
@@ -273,6 +280,7 @@
           startL  = win.offsetLeft; startT = win.offsetTop;
           function onMove(e) {
             if (!dragging) return;
+            didDrag = true;
             win.style.left = (startL + e.clientX - startMX) + 'px';
             win.style.top  = (startT + e.clientY - startMY) + 'px';
             if (bubble.classList.contains('visible')) {
@@ -294,9 +302,16 @@
         });
         win.addEventListener('mousedown', function () { win.style.zIndex = ++zTop; });
 
-        if (def.tip) {
-          win.addEventListener('mouseenter', function () { showBubble(win, def.tip); });
+        var tipText = def.tip || (def.url ? '↗ ' + decodeURIComponent(def.url).replace('https://', '') : null);
+        if (tipText) {
+          win.addEventListener('mouseenter', function () { showBubble(win, tipText); });
           win.addEventListener('mouseleave', hideBubble);
+        }
+        if (def.url) {
+          body.style.cursor = 'pointer';
+          body.addEventListener('click', function () {
+            if (!didDrag) window.open(def.url, '_blank');
+          });
         }
       });
     }
