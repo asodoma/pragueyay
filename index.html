@@ -209,8 +209,10 @@
     bubble.className = 'win-bubble';
     document.body.appendChild(bubble);
 
-    function showBubble(win, text) {
+    function showBubble(win, text, compact) {
       bubble.textContent = text;
+      bubble.style.width      = compact ? 'auto' : '220px';
+      bubble.style.whiteSpace = compact ? 'nowrap' : 'normal';
       var rect = win.getBoundingClientRect();
       bubble.style.left = rect.left + 'px';
       bubble.style.top  = (rect.bottom + 10) + 'px';
@@ -302,9 +304,10 @@
         });
         win.addEventListener('mousedown', function () { win.style.zIndex = ++zTop; });
 
-        var tipText = def.tip || (def.url ? '↗ ' + decodeURIComponent(def.url).replace('https://', '') : null);
+        var tipText    = def.tip || (def.url ? '↗ ' + decodeURIComponent(def.url).replace('https://', '') : null);
+        var tipCompact = !def.tip && !!def.url;
         if (tipText) {
-          win.addEventListener('mouseenter', function () { showBubble(win, tipText); });
+          win.addEventListener('mouseenter', function () { showBubble(win, tipText, tipCompact); });
           win.addEventListener('mouseleave', hideBubble);
         }
         if (def.url) {
