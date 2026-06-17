@@ -7,7 +7,6 @@
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
   <link href="https://fonts.googleapis.com/css2?family=Crimson+Text:ital@1&family=Inter:wght@300;400;700&family=Roboto+Mono&display=swap" rel="stylesheet">
-  <link rel="stylesheet" href="https://unpkg.com/leaflet@1.9.4/dist/leaflet.css"/>
   <link rel="stylesheet" href="style.css">
 </head>
 <body>
@@ -39,7 +38,6 @@
         <a href="#cz-food"     class="nav-link">CZ Food</a>
         <a href="#activities"  class="nav-link">Activities</a>
         <a href="#prague-food" class="nav-link">Prague Food &amp; Drink</a>
-        <a href="#eat-drink"   class="nav-link">Where to Eat &amp; Drink</a>
         <a href="#brno"        class="nav-link">Brno</a>
       </nav>
 
@@ -50,13 +48,11 @@
       <section id="cz-food"     class="gallery-section hidden"><div class="gallery-canvas"></div></section>
       <section id="activities"  class="gallery-section hidden"></section>
       <section id="prague-food" class="gallery-section hidden"><div class="gallery-canvas" style="height:520px"></div></section>
-      <section id="eat-drink"   class="gallery-section hidden"></section>
       <section id="brno"        class="gallery-section hidden"><div class="gallery-canvas"></div></section>
     </main>
   </div>
 
-  <script src="https://unpkg.com/leaflet@1.9.4/dist/leaflet.js"></script>
-  <script>
+<script>
   (function () {
 
     // ── Section definitions ─────────────────────────────────────────────
@@ -195,43 +191,14 @@
         { label: 'Popocafepetl',        w: 255, lp: 0.68, t:  34, r: -1.8,
           tip: 'the best thing about this place is that they have Chupitos for like 1 euro/shot' },
         // Row 2
-        { label: 'bar hvězda',          w: 258, lp: 0.15, t: 278, r:  1.5 },
+        { label: 'bar hvězda',          w: 258, lp: 0.04, t: 278, r:  1.5 },
+        { label: 'havelská koruna',      w: 255, lp: 0.37, t: 265, r: -1.8 },
         { label: 'bulerbyn',
           src: 'assets/prague-gastro/bulerbyn.jpg',
-          w: 262, lp: 0.52, t: 265, r: -2.0,
+          w: 262, lp: 0.68, t: 272, r:  2.0,
           tip: 'a nicer bar & restaurant, quite nice drinks and slovak halušky' },
       ],
 
-      // ── Where to Eat & Drink (map layout) ──────────────────────────────
-      'eat-drink': {
-        mapLayout: true,
-        canvasHeight: 720,
-        mapCenter: [50.083, 14.437],
-        mapZoom: 13,
-        cards: [
-          // 2-col layout; lp is fraction of the narrower eat-canvas (~520px)
-          { label: 'Bullerbyn',
-            w: 235, lp: 0.04, t:  20, r: -1.5,
-            lat: 50.0746237, lng: 14.4456846,
-            tip: 'Chodská 17, Vinohrady · Cozy neighbourhood bar' },
-          { label: 'Popocafepetl',
-            w: 235, lp: 0.50, t:  10, r:  1.8,
-            lat: 50.0853237, lng: 14.4198327,
-            tip: 'Michalská 15, Old Town · Chupito shot — 25 Kč (0.99 CHF!)' },
-          { label: 'Havelská koruna',
-            w: 235, lp: 0.04, t: 260, r:  2.0,
-            lat: 50.0854609, lng: 14.4215798,
-            tip: 'Havelská 21, Old Town · Traditional Czech self-service cafeteria' },
-          { label: 'Přístav 18600',
-            w: 235, lp: 0.50, t: 248, r: -1.8,
-            lat: 50.0940214, lng: 14.4385140,
-            tip: 'Rohanský ostrov, Karlín · Seasonal riverside bar and beer garden' },
-          { label: 'Vinohradský pivovar',
-            w: 235, lp: 0.25, t: 490, r:  1.5,
-            lat: 50.0753114, lng: 14.4577020,
-            tip: 'Korunní 106, Vinohrady · Craft microbrewery, Guardian top pick' },
-        ]
-      },
 
       // ── Brno ────────────────────────────────────────────────────────────
       'brno': [
@@ -361,8 +328,6 @@
     }
 
     // ── Section builder ─────────────────────────────────────────────────
-    var venueMap = null;
-
     function buildSection(sectionId, data) {
       if (Array.isArray(data)) {
         buildGalleryInCanvas(
@@ -385,65 +350,7 @@
           section.appendChild(sg);
           buildGalleryInCanvas(canvas, group.cards);
         });
-      } else if (data.mapLayout) {
-        var section = document.getElementById(sectionId);
-
-        var layout = document.createElement('div');
-        layout.className = 'eat-drink-layout';
-
-        var canvas = document.createElement('div');
-        canvas.className = 'gallery-canvas eat-canvas';
-        canvas.style.height = (data.canvasHeight || 720) + 'px';
-        layout.appendChild(canvas);
-
-        var mapEl = document.createElement('div');
-        mapEl.id  = sectionId + '-map';
-        mapEl.className = 'venue-map';
-        layout.appendChild(mapEl);
-
-        section.appendChild(layout);
-        buildGalleryInCanvas(canvas, data.cards);
-
-        // store config for deferred init
-        mapEl.dataset.center = JSON.stringify(data.mapCenter);
-        mapEl.dataset.zoom   = data.mapZoom;
-        mapEl.dataset.venues = JSON.stringify(
-          data.cards.filter(function(c){ return c.lat; }).map(function(c,i){
-            return { name: c.label, lat: c.lat, lng: c.lng, n: i + 1 };
-          })
-        );
       }
-    }
-
-    // ── Venue map init (deferred until section shown) ───────────────────
-    function initVenueMap(mapEl) {
-      if (mapEl._mapReady) return;
-      mapEl._mapReady = true;
-
-      var center = JSON.parse(mapEl.dataset.center);
-      var zoom   = parseInt(mapEl.dataset.zoom, 10);
-      var venues = JSON.parse(mapEl.dataset.venues);
-
-      venueMap = L.map(mapEl, { zoomControl: true }).setView(center, zoom);
-
-      L.tileLayer('https://{s}.basemaps.cartocdn.com/light_all/{z}/{x}/{y}{r}.png', {
-        attribution: '&copy; <a href="https://www.openstreetmap.org/copyright">OpenStreetMap</a> &copy; <a href="https://carto.com/">CARTO</a>',
-        subdomains: 'abcd',
-        maxZoom: 19
-      }).addTo(venueMap);
-
-      venues.forEach(function (v) {
-        var icon = L.divIcon({
-          className: '',
-          html: '<div class="map-pin">' + v.n + '</div>',
-          iconSize:   [26, 26],
-          iconAnchor: [13, 13],
-          popupAnchor:[0, -16]
-        });
-        L.marker([v.lat, v.lng], { icon: icon })
-          .addTo(venueMap)
-          .bindPopup('<b>' + v.name + '</b>');
-      });
     }
 
     // ── Position windows ────────────────────────────────────────────────
@@ -473,14 +380,6 @@
       if (section) {
         section.classList.remove('hidden');
         positionSection(hash.slice(1));
-        // Init map if this is the eat-drink section
-        var mapEl = section.querySelector('.venue-map');
-        if (mapEl) {
-          setTimeout(function () {
-            initVenueMap(mapEl);
-            if (venueMap) venueMap.invalidateSize();
-          }, 50);
-        }
       }
       if (link) link.classList.add('active');
       hideBubble();
@@ -492,7 +391,6 @@
     window.addEventListener('hashchange', navigate);
     window.addEventListener('resize', function () {
       positionSection((window.location.hash || '#travel').slice(1));
-      if (venueMap) venueMap.invalidateSize();
     });
 
   })();

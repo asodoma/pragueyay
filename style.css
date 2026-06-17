@@ -287,43 +287,6 @@ nav {
   text-underline-offset: 3px;
 }
 
-/* ─── Eat & Drink layout ─────────────────────────── */
-
-.eat-drink-layout {
-  display: flex;
-  gap: 28px;
-  align-items: flex-start;
-}
-
-.eat-canvas {
-  flex: 1;
-  min-width: 0;
-  position: relative;
-}
-
-.venue-map {
-  width: 340px;
-  flex-shrink: 0;
-  border: 1px solid var(--ink);
-  position: sticky;
-  top: 24px;
-}
-
-.map-pin {
-  width: 26px;
-  height: 26px;
-  background: var(--ink);
-  border-radius: 50%;
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  color: var(--bg);
-  font-family: 'Roboto Mono', monospace;
-  font-size: 10px;
-  font-weight: 700;
-  cursor: pointer;
-}
-
 /* ─── Responsive ─────────────────────────────────── */
 
 @media (max-width: 680px) {
@@ -340,7 +303,4 @@ nav {
 
   .container   { padding: 0 20px; }
   header       { padding-top: 40px; }
-
-  .eat-drink-layout { flex-direction: column; }
-  .venue-map        { width: 100%; height: 320px !important; position: static; }
 }
