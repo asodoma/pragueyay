@@ -49,7 +49,7 @@
       <section id="travel"      class="gallery-section"></section>
       <section id="cz-food"     class="gallery-section hidden"><div class="gallery-canvas"></div></section>
       <section id="activities"  class="gallery-section hidden"></section>
-      <section id="prague-food" class="gallery-section hidden"><div class="gallery-canvas"></div></section>
+      <section id="prague-food" class="gallery-section hidden"><div class="gallery-canvas" style="height:520px"></div></section>
       <section id="eat-drink"   class="gallery-section hidden"></section>
       <section id="brno"        class="gallery-section hidden"><div class="gallery-canvas"></div></section>
     </main>
@@ -192,12 +192,16 @@
 
       // ── Prague Food & Drink ─────────────────────────────────────────────
       'prague-food': [
-        { label: 'Restaurant picks', w: 262, lp: 0.04, t:  30, r: -1.5, tip: 'Top picks for a proper sit-down dinner' },
-        { label: 'Wine bars',        w: 252, lp: 0.38, t:  15, r:  2.0, tip: 'Bohemian and Moravian wine scene' },
-        { label: 'Craft beer spots', w: 258, lp: 0.68, t:  40, r: -2.0, tip: 'Beyond the Pilsner — microbreweries and tap rooms' },
-        { label: 'Coffee shops',     w: 262, lp: 0.07, t: 392, r:  1.8, tip: 'Third wave coffee is thriving in Prague' },
-        { label: 'Farmers markets',  w: 265, lp: 0.36, t: 375, r: -1.2, tip: 'Náplavka riverbank market on weekends' },
-        { label: 'Late night spots', w: 252, lp: 0.66, t: 400, r:  2.2, tip: 'Prague after midnight — bars, clubs, and kebabs' },
+        // Row 1
+        { label: 'bab;rýže',           w: 258, lp: 0.04, t:  28, r: -1.5 },
+        { label: 'skautský institut',   w: 265, lp: 0.37, t:  16, r:  2.0,
+          tip: 'scout institute, placed on the main historical square and is not touristy at all, hidden gem par excellence' },
+        { label: 'Popocafepetl',        w: 255, lp: 0.68, t:  34, r: -1.8,
+          tip: 'the best thing about this place is that they have Chupitos for like 1 euro/shot' },
+        // Row 2
+        { label: 'bar hvězda',          w: 258, lp: 0.15, t: 278, r:  1.5 },
+        { label: 'bulerbyn',            w: 262, lp: 0.52, t: 265, r: -2.0,
+          tip: 'a nicer bar & restaurant, quite nice drinks and slovak halušky' },
       ],
 
       // ── Where to Eat & Drink (map layout) ──────────────────────────────
