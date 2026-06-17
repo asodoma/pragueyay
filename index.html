@@ -74,7 +74,7 @@
             cards: [
               { label: 'idos.cz',
                 type: 'info',
-                w: 300, lp: 0.05, t: 22, r: -1.5,
+                w: 300, lp: 0, t: 22, r: -1.5, center: true,
                 tip: 'on this webpage you can find every connection within and out of Czechia. Alternatively you can always use google maps, obviously, but (1) Google is evil and (2) its not so good for planning',
                 html: 'All trains &amp; buses in Czechia — Regiojet, České dráhy, FlixBus and every regional connection.<br><br><a href="https://idos.cz" target="_blank">↗ idos.cz</a>' },
             ]
@@ -230,8 +230,9 @@
         win.style.width     = def.w + 'px';
         win.style.transform = 'rotate(' + def.r + 'deg)';
         win.style.zIndex    = i + 1;
-        win.dataset.lp = def.lp;
-        win.dataset.t  = def.t;
+        win.dataset.lp     = def.lp;
+        win.dataset.t      = def.t;
+        win.dataset.center = def.center ? '1' : '';
 
         // Title bar
         var bar = document.createElement('div');
@@ -413,7 +414,9 @@
         var W = canvas.offsetWidth;
         canvas.querySelectorAll('.win').forEach(function (win) {
           if (!win.dataset.dragged) {
-            win.style.left = Math.round(parseFloat(win.dataset.lp) * W) + 'px';
+            win.style.left = win.dataset.center === '1'
+              ? Math.round((W - win.offsetWidth) / 2) + 'px'
+              : Math.round(parseFloat(win.dataset.lp) * W) + 'px';
             win.style.top  = win.dataset.t + 'px';
           }
         });
