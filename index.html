@@ -49,7 +49,7 @@
     <main>
       <section id="travel"      class="gallery-section"></section>
       <section id="cz-food"     class="gallery-section hidden"><div class="gallery-canvas"></div></section>
-      <section id="activities"  class="gallery-section hidden"><div class="gallery-canvas"></div></section>
+      <section id="activities"  class="gallery-section hidden"></section>
       <section id="sights"      class="gallery-section hidden"><div class="gallery-canvas"></div></section>
       <section id="prague-food" class="gallery-section hidden"><div class="gallery-canvas"></div></section>
       <section id="eat-drink"   class="gallery-section hidden"></section>
@@ -132,14 +132,64 @@
       ],
 
       // ── Activities ──────────────────────────────────────────────────────
-      'activities': [
-        { label: 'City walking tour', w: 265, lp: 0.04, t:  30, r: -1.8, tip: 'Explore Old Town and Malá Strana on foot' },
-        { label: 'Beer tasting',      w: 258, lp: 0.38, t:  20, r:  2.0, tip: 'Dive into Czech beer culture' },
-        { label: 'Day trips',         w: 252, lp: 0.68, t:  45, r: -1.5, tip: 'Kutná Hora, Český Krumlov, Karlovy Vary…' },
-        { label: 'Kayaking',          w: 260, lp: 0.06, t: 392, r:  1.8, tip: 'On the Vltava river through Prague' },
-        { label: 'Historical tours',  w: 265, lp: 0.36, t: 378, r: -2.2, tip: 'Guided walks through centuries of history' },
-        { label: 'Local markets',     w: 252, lp: 0.67, t: 402, r:  1.5, tip: 'Náplavka, Manifesto, Holešovice market…' },
-      ],
+      'activities': {
+        subgroups: [
+          {
+            title: 'Museums',
+            height: 300,
+            cards: [
+              { label: 'DOX',
+                w: 258, lp: 0.04, t: 28, r: -1.5,
+                tip: 'Centre for Contemporary Art and Design, Holešovice' },
+              { label: 'Národní technické muzeum',
+                src: 'assets/activities/technical-museum.jpg',
+                w: 268, lp: 0.37, t: 16, r:  1.8,
+                tip: 'National Technical Museum — cars, planes, trains and more' },
+              { label: 'Rudolfinum',
+                src: 'assets/activities/rudolfinum.jpg',
+                w: 256, lp: 0.68, t: 34, r: -2.0,
+                tip: 'Concert hall and gallery in a stunning neo-renaissance building on the riverbank' },
+            ]
+          },
+          {
+            title: 'Gastro',
+            height: 420,
+            cards: [
+              { label: 'Beer tasting — Matuška',
+                src: 'assets/activities/matuska.jpg',
+                w: 230, lp: 0.04, t: 22, r:  2.0,
+                tip: 'Craft beer tasting at one of the best Czech microbreweries' },
+              { label: 'Pho',
+                w: 252, lp: 0.38, t: 12, r: -1.5,
+                tip: 'Prague has surprisingly great Vietnamese food' },
+              { label: 'Sláva Ukrajině',
+                w: 258, lp: 0.68, t: 30, r:  1.8,
+                tip: 'Ukrainian restaurant — worth every koruna' },
+            ]
+          },
+          {
+            title: 'Misc',
+            height: 550,
+            cards: [
+              { label: 'Darts — Letná',
+                w: 262, lp: 0.05, t: 22, r: -1.8,
+                tip: 'Darts bar in Letná — grab a pint and throw some arrows' },
+              { label: 'Bouldering',
+                src: 'assets/activities/boulder.jpg',
+                w: 272, lp: 0.52, t: 12, r:  2.0,
+                tip: 'Indoor bouldering on a tower in the middle of a housing estate' },
+              { label: 'Olšanské hřbitovy',
+                src: 'assets/activities/cemetry.jpg',
+                w: 258, lp: 0.05, t: 295, r:  1.5,
+                tip: 'Evaluating other people\'s tombstones at Prague\'s largest cemetery' },
+              { label: 'Cheese triathlon',
+                src: 'assets/activities/cheese.jpg',
+                w: 255, lp: 0.52, t: 282, r: -2.0,
+                tip: 'Smažený sýr + fries + potato salad — the holy trinity' },
+            ]
+          },
+        ]
+      },
 
       // ── Sights ──────────────────────────────────────────────────────────
       'sights': [
