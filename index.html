@@ -69,35 +69,14 @@
       'travel': {
         subgroups: [
           {
-            title: 'Zurich — Prague',
-            height: 340,
+            title: 'Connections',
+            height: 210,
             cards: [
-              { label: 'Flights (ZRH / BSL)',
-                src: 'assets/travel/easyjet-zurich.jpg',
-                w: 272, lp: 0.03, t: 28, r: -1.5,
-                tip: 'EasyJet and Swiss fly direct from Zurich (ZRH). Ryanair and easyJet from Basel/Mulhouse (BSL/EAP).' },
-              { label: 'Flixbus',
-                src: 'assets/travel/flixbus.jpg',
-                w: 255, lp: 0.37, t: 18, r:  1.8,
-                tip: 'Affordable coach across Europe. Book on flixbus.com' },
-              { label: 'Regiojet bus',
-                src: 'assets/travel/regiojet-bus.jpg',
-                w: 260, lp: 0.67, t: 32, r: -2.0,
-                tip: 'Czech operator with free snacks and wifi on board. Book on regiojet.com' },
-            ]
-          },
-          {
-            title: 'Prague — Brno',
-            height: 300,
-            cards: [
-              { label: 'Regiojet train',
-                src: 'assets/travel/regiojet-train.jpg',
-                w: 272, lp: 0.07, t: 24, r:  1.5,
-                tip: 'Yellow trains, ~2.5h Prague → Brno. Free coffee and wifi. Book on regiojet.com' },
-              { label: 'České dráhy',
-                src: 'assets/travel/ceske-drahy.jpg',
-                w: 258, lp: 0.54, t: 14, r: -1.8,
-                tip: 'Czech national rail — multiple departures daily. All trains at idos.cz or cd.cz' },
+              { label: 'idos.cz',
+                type: 'info',
+                w: 300, lp: 0.05, t: 22, r: -1.5,
+                tip: 'on this webpage you can find every connection within and out of Czechia. Alternatively you can always use google maps, obviously, but (1) Google is evil and (2) its not so good for planning',
+                html: 'All trains &amp; buses in Czechia — Regiojet, České dráhy, FlixBus and every regional connection.<br><br><a href="https://idos.cz" target="_blank">↗ idos.cz</a>' },
             ]
           },
           {
@@ -107,7 +86,7 @@
               { label: 'DPP — Metro &amp; Tram',
                 src: 'assets/travel/prague-tram.jpg',
                 w: 272, lp: 0.04, t: 24, r: -1.8,
-                tip: 'One ticket covers metro, tram, and bus. Timetables: dpp.cz and idos.cz' },
+                tip: 'As reliable as swiss public transport with a fraction of the price. 1 ticket covers metro, tram and bus and within Prague trains. Schedules are on Idos, or (obviously) on google maps.' },
               { label: 'Tickets &amp; Fares',
                 type: 'info',
                 w: 265, lp: 0.44, t: 16, r:  1.5,
@@ -117,18 +96,16 @@
           },
           {
             title: 'Around Czechia',
-            height: 265,
+            height: 300,
             cards: [
-              { label: 'idos.cz',
-                type: 'info',
-                w: 300, lp: 0.05, t: 22, r: -1.5,
-                tip: 'The Czech transport bible — search any connection',
-                html: 'All trains &amp; buses in Czechia — Regiojet, České dráhy, FlixBus and every regional connection.<br><br><a href="https://idos.cz" target="_blank">↗ idos.cz</a>' },
-              { label: 'How to use',
-                type: 'info',
-                w: 265, lp: 0.53, t: 14, r:  1.8,
-                tip: 'Enter from → to and pick a date',
-                html: 'Enter origin &amp; destination, pick a date, and choose from all available buses and trains sorted by time and price.' },
+              { label: 'Regiojet',
+                src: 'assets/travel/regiojet-train.jpg',
+                w: 272, lp: 0.07, t: 24, r:  1.5,
+                tip: 'The best operator. Very reliable and mainly they have amazing onboard menu with everything from cheesecakes, butter chicken to kombucha for very little money' },
+              { label: 'České dráhy',
+                src: 'assets/travel/ceske-drahy.jpg',
+                w: 258, lp: 0.54, t: 14, r: -1.8,
+                tip: "the national operator, it's okay, very reliable as well. goes to every small village you can think of" },
             ]
           },
         ]
