@@ -214,13 +214,15 @@
           el.addEventListener('mouseleave', function () {
             if (el !== activePinEl) { el.style.transform = ''; el.style.filter = ''; }
           });
-          el.addEventListener('click', function () {
-            if (activePinEl && activePinEl !== el) { activePinEl.style.transform = ''; activePinEl.style.filter = ''; }
-            el.style.transform = 'scale(1.25) translateY(-4px)';
-            el.style.filter    = 'drop-shadow(0 7px 14px rgba(0,0,0,0.4))';
-            activePinEl = el;
-            showSidebarPlace(place);
-          });
+        });
+        marker.on('click', function (e) {
+          L.DomEvent.stopPropagation(e);
+          var el = marker.getElement().querySelector('.map-pin');
+          if (activePinEl && activePinEl !== el) { activePinEl.style.transform = ''; activePinEl.style.filter = ''; }
+          el.style.transform = 'scale(1.25) translateY(-4px)';
+          el.style.filter    = 'drop-shadow(0 7px 14px rgba(0,0,0,0.4))';
+          activePinEl = el;
+          showSidebarPlace(place);
         });
       });
 
