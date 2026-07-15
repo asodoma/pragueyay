@@ -130,6 +130,11 @@
 
       layout.appendChild(sidebar);
       section.appendChild(layout);
+
+      var note = document.createElement('p');
+      note.className = 'map-note';
+      note.innerHTML = 'shoutout <a href="https://en.wikipedia.org/wiki/OpenStreetMap" target="_blank">OpenStreetMaps</a> – a free, crowdsourced digital map of the world';
+      section.appendChild(note);
     }
 
     function initMap() {

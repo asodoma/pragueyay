@@ -401,6 +401,19 @@ nav {
   text-underline-offset: 3px;
 }
 
+.map-note {
+  font-family: 'Roboto Mono', monospace;
+  font-size: 10px;
+  color: #bbb;
+  margin-top: 10px;
+  letter-spacing: 0.03em;
+}
+
+.map-note a {
+  color: #bbb;
+  text-underline-offset: 3px;
+}
+
 /* ─── Responsive ─────────────────────────────────── */
 
 @media (max-width: 680px) {
