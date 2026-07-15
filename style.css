@@ -306,22 +306,11 @@ nav {
 }
 
 .map-pin {
-  width: 44px;
-  height: 44px;
-  border-radius: 50%;
-  border: 3px solid;
-  background-size: cover;
-  background-position: center;
   cursor: pointer;
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  font-family: 'Roboto Mono', monospace;
-  font-size: 15px;
-  font-weight: 700;
-  color: #fff;
-  transition: transform 0.15s ease, box-shadow 0.15s ease;
-  box-sizing: border-box;
+  display: block;
+  line-height: 0;
+  transition: transform 0.15s ease, filter 0.15s ease;
+  transform-origin: center bottom;
 }
 
 .map-sidebar {
