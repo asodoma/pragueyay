@@ -168,7 +168,6 @@
         subdomains: 'abcd',
         maxZoom: 19
       }).addTo(mapInstance);
-      mapInstance.getPanes().tilePane.style.filter = 'grayscale(1) contrast(1.8)';
 
       PLACES.forEach(function (place, i) {
         var color = CAT_COLORS[place.category] || '#111';
