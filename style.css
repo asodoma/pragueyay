@@ -287,6 +287,131 @@ nav {
   text-underline-offset: 3px;
 }
 
+/* ─── Map ────────────────────────────────────────── */
+
+.map-layout {
+  display: flex;
+  height: 640px;
+  border: 1px solid var(--ink);
+}
+
+#map-leaflet {
+  flex: 1;
+  min-width: 0;
+}
+
+.leaflet-div-icon {
+  background: none !important;
+  border: none !important;
+}
+
+.map-pin {
+  width: 44px;
+  height: 44px;
+  border-radius: 50%;
+  border: 3px solid;
+  background-size: cover;
+  background-position: center;
+  cursor: pointer;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-family: 'Roboto Mono', monospace;
+  font-size: 15px;
+  font-weight: 700;
+  color: #fff;
+  transition: transform 0.15s ease, box-shadow 0.15s ease;
+  box-sizing: border-box;
+}
+
+.map-sidebar {
+  width: 260px;
+  flex-shrink: 0;
+  border-left: 1px solid var(--ink);
+  display: flex;
+  flex-direction: column;
+  overflow: hidden;
+  font-family: 'Roboto Mono', monospace;
+}
+
+.map-sidebar-empty {
+  flex: 1;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 11px;
+  color: #bbb;
+  letter-spacing: 1px;
+  text-align: center;
+  padding: 20px;
+}
+
+.map-sidebar-content {
+  display: flex;
+  flex-direction: column;
+  height: 100%;
+  overflow-y: auto;
+}
+
+.map-sidebar-img {
+  width: 100%;
+  height: 180px;
+  object-fit: cover;
+  display: block;
+  flex-shrink: 0;
+  border-bottom: 1px solid var(--ink);
+}
+
+.map-sidebar-no-img {
+  width: 100%;
+  height: 120px;
+  border-bottom: 1px solid var(--ink);
+  flex-shrink: 0;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.map-sidebar-body {
+  padding: 16px 16px 24px;
+  overflow-y: auto;
+}
+
+.map-sidebar-cat {
+  font-size: 9px;
+  letter-spacing: 2.5px;
+  text-transform: uppercase;
+  margin-bottom: 8px;
+}
+
+.map-sidebar-name {
+  font-size: 13px;
+  font-weight: 700;
+  line-height: 1.35;
+  color: var(--ink);
+  margin-bottom: 10px;
+}
+
+.map-sidebar-desc {
+  font-size: 11px;
+  line-height: 1.75;
+  color: #555;
+  margin-bottom: 10px;
+}
+
+.map-sidebar-address {
+  font-size: 10px;
+  color: #aaa;
+  margin-bottom: 16px;
+}
+
+.map-sidebar-gmaps {
+  font-size: 11px;
+  color: var(--ink);
+  text-decoration: underline;
+  text-underline-offset: 3px;
+}
+
 /* ─── Responsive ─────────────────────────────────── */
 
 @media (max-width: 680px) {

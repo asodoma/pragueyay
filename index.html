@@ -7,6 +7,7 @@
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
   <link href="https://fonts.googleapis.com/css2?family=Crimson+Text:ital@1&family=Inter:wght@300;400;700&family=Roboto+Mono&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="https://unpkg.com/leaflet@1.9.4/dist/leaflet.css"/>
   <link rel="stylesheet" href="style.css">
 </head>
 <body>
@@ -38,6 +39,7 @@
         <a href="#cz-food"     class="nav-link">CZ Food</a>
         <a href="#activities"  class="nav-link">Activities</a>
         <a href="#prague-food" class="nav-link">Prague Food &amp; Drink</a>
+        <a href="#map"         class="nav-link">Map</a>
         <a href="#brno"        class="nav-link">Brno</a>
       </nav>
 
@@ -48,12 +50,171 @@
       <section id="cz-food"     class="gallery-section hidden"><div class="gallery-canvas"></div></section>
       <section id="activities"  class="gallery-section hidden"></section>
       <section id="prague-food" class="gallery-section hidden"><div class="gallery-canvas" style="height:520px"></div></section>
+      <section id="map"          class="gallery-section hidden"></section>
       <section id="brno"        class="gallery-section hidden"><div class="gallery-canvas"></div></section>
     </main>
   </div>
 
+<script src="https://unpkg.com/leaflet@1.9.4/dist/leaflet.js"></script>
 <script>
   (function () {
+
+    // ── Map: categories & places ────────────────────────────────────────
+
+    var CAT_COLORS = {
+      food:       '#D7141A',
+      drink:      '#1A3D7A',
+      coffee:     '#8B5E3C',
+      activities: '#2D7A3A',
+      vibes:      '#111111'
+    };
+
+    var PLACES = [
+      { name: 'Bulerbyn',           category: 'drink',
+        lat: 50.0746237, lng: 14.4456846,
+        img: null,
+        desc: 'Cozy neighbourhood bar and restaurant in Vinohrady. Nice drinks and Slovak halušky.',
+        address: 'Chodská 17, Praha 2' },
+      { name: 'Popocafepetl',       category: 'drink',
+        lat: 50.0853237, lng: 14.4198327,
+        img: null,
+        desc: 'They have Chupito shots for 25 Kč — that\'s about 1 euro. Yes, really.',
+        address: 'Michalská 15, Praha 1' },
+      { name: 'Havelská koruna',    category: 'food',
+        lat: 50.0854609, lng: 14.4215798,
+        img: null,
+        desc: 'Traditional Czech self-service cafeteria right in the heart of Old Town.',
+        address: 'Havelská 21, Praha 1' },
+      { name: 'Přístav 18600',      category: 'drink',
+        lat: 50.0940214, lng: 14.4385140,
+        img: null,
+        desc: 'Seasonal riverside bar and beer garden on Rohanský ostrov, Karlín.',
+        address: 'Rohanský ostrov, Praha 8' },
+      { name: 'Vinohradský pivovar',category: 'drink',
+        lat: 50.0753114, lng: 14.4577020,
+        img: null,
+        desc: 'Craft microbrewery in Vinohrady. Guardian top pick.',
+        address: 'Korunní 106, Praha 2' },
+    ];
+
+    // ── Map builder ─────────────────────────────────────────────────────
+
+    var mapInstance   = null;
+    var activePinEl   = null;
+
+    function buildMapSection() {
+      var section = document.getElementById('map');
+
+      var layout = document.createElement('div');
+      layout.className = 'map-layout';
+
+      // Left: Leaflet container
+      var mapDiv = document.createElement('div');
+      mapDiv.id  = 'map-leaflet';
+      layout.appendChild(mapDiv);
+
+      // Right: sidebar
+      var sidebar = document.createElement('div');
+      sidebar.className = 'map-sidebar';
+
+      var emptyEl = document.createElement('div');
+      emptyEl.className = 'map-sidebar-empty';
+      emptyEl.id = 'map-sidebar-empty';
+      emptyEl.textContent = 'click a pin to explore';
+      sidebar.appendChild(emptyEl);
+
+      var contentEl = document.createElement('div');
+      contentEl.className = 'map-sidebar-content';
+      contentEl.id = 'map-sidebar-content';
+      sidebar.appendChild(contentEl);
+
+      layout.appendChild(sidebar);
+      section.appendChild(layout);
+    }
+
+    function initMap() {
+      if (mapInstance) return;
+
+      mapInstance = L.map('map-leaflet', {
+        center: [50.075, 14.435],
+        zoom: 13,
+        minZoom: 11,
+        maxBounds: [[49.9, 14.1], [50.25, 14.75]],
+        maxBoundsViscosity: 0.85,
+        zoomControl: true
+      });
+
+      L.tileLayer('https://{s}.basemaps.cartocdn.com/light_all/{z}/{x}/{y}{r}.png', {
+        attribution: '&copy; <a href="https://www.openstreetmap.org/copyright">OpenStreetMap</a> &copy; <a href="https://carto.com/">CARTO</a>',
+        subdomains: 'abcd',
+        maxZoom: 19
+      }).addTo(mapInstance);
+
+      PLACES.forEach(function (place) {
+        var color = CAT_COLORS[place.category] || '#111';
+
+        var pinEl = document.createElement('div');
+        pinEl.className = 'map-pin';
+        pinEl.style.borderColor = color;
+        if (place.img) {
+          pinEl.style.backgroundImage = 'url(' + place.img + ')';
+        } else {
+          pinEl.style.backgroundColor = color;
+          pinEl.textContent = place.name.charAt(0);
+        }
+
+        var icon = L.divIcon({
+          className: '',
+          html: pinEl.outerHTML,
+          iconSize:   [44, 44],
+          iconAnchor: [22, 22]
+        });
+
+        var marker = L.marker([place.lat, place.lng], { icon: icon }).addTo(mapInstance);
+
+        marker.on('add', function () {
+          var el = marker.getElement().querySelector('.map-pin');
+          el.addEventListener('mouseenter', function () { el.style.transform = 'scale(1.25)'; el.style.boxShadow = '0 4px 14px rgba(0,0,0,0.3)'; });
+          el.addEventListener('mouseleave', function () {
+            if (el !== activePinEl) { el.style.transform = ''; el.style.boxShadow = ''; }
+          });
+          el.addEventListener('click', function () {
+            if (activePinEl && activePinEl !== el) { activePinEl.style.transform = ''; activePinEl.style.boxShadow = ''; }
+            el.style.transform = 'scale(1.3)';
+            el.style.boxShadow = '0 6px 18px rgba(0,0,0,0.4)';
+            activePinEl = el;
+            showSidebarPlace(place);
+          });
+        });
+      });
+
+      // Click on map deselects
+      mapInstance.on('click', function () {
+        if (activePinEl) { activePinEl.style.transform = ''; activePinEl.style.boxShadow = ''; activePinEl = null; }
+        document.getElementById('map-sidebar-content').innerHTML = '';
+        document.getElementById('map-sidebar-empty').style.display = 'flex';
+      });
+    }
+
+    function showSidebarPlace(place) {
+      var color    = CAT_COLORS[place.category] || '#111';
+      var emptyEl  = document.getElementById('map-sidebar-empty');
+      var contentEl = document.getElementById('map-sidebar-content');
+      var gmapsUrl = 'https://maps.google.com/?q=' + place.lat + ',' + place.lng;
+
+      emptyEl.style.display = 'none';
+      contentEl.innerHTML =
+        (place.img
+          ? '<img class="map-sidebar-img" src="' + place.img + '" alt="' + place.name + '">'
+          : '<div class="map-sidebar-no-img" style="border-color:' + color + '"><span style="color:' + color + ';font-size:36px;font-family:\'Roboto Mono\',monospace;font-weight:700">' + place.name.charAt(0) + '</span></div>') +
+        '<div class="map-sidebar-body">' +
+        '<div class="map-sidebar-cat" style="color:' + color + '">' + place.category + '</div>' +
+        '<div class="map-sidebar-name">' + place.name + '</div>' +
+        (place.desc ? '<div class="map-sidebar-desc">' + place.desc + '</div>' : '') +
+        '<div class="map-sidebar-address">' + place.address + '</div>' +
+        '<a class="map-sidebar-gmaps" href="' + gmapsUrl + '" target="_blank">↗ open in Google Maps</a>' +
+        '</div>';
+    }
 
     // ── Section definitions ─────────────────────────────────────────────
 
@@ -381,18 +542,28 @@
       var link    = document.querySelector('a[href="' + hash + '"]');
       if (section) {
         section.classList.remove('hidden');
-        positionSection(hash.slice(1));
+        if (hash === '#map') {
+          setTimeout(function () {
+            initMap();
+            if (mapInstance) mapInstance.invalidateSize();
+          }, 50);
+        } else {
+          positionSection(hash.slice(1));
+        }
       }
       if (link) link.classList.add('active');
       hideBubble();
     }
 
     // ── Init ────────────────────────────────────────────────────────────
+    buildMapSection();
     Object.keys(SECTIONS).forEach(function (id) { buildSection(id, SECTIONS[id]); });
     navigate();
     window.addEventListener('hashchange', navigate);
     window.addEventListener('resize', function () {
-      positionSection((window.location.hash || '#travel').slice(1));
+      var h = (window.location.hash || '#travel').slice(1);
+      if (h === 'map') { if (mapInstance) mapInstance.invalidateSize(); }
+      else positionSection(h);
     });
 
   })();
