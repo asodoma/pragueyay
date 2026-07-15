@@ -130,6 +130,7 @@
 
     var mapInstance   = null;
     var activePinEl   = null;
+    var mapMarkers    = [];
 
     function buildMapSection() {
       var section = document.getElementById('map');
@@ -145,12 +146,6 @@
       // Right: sidebar
       var sidebar = document.createElement('div');
       sidebar.className = 'map-sidebar';
-
-      var emptyEl = document.createElement('div');
-      emptyEl.className = 'map-sidebar-empty';
-      emptyEl.id = 'map-sidebar-empty';
-      emptyEl.textContent = 'click a pin to explore';
-      sidebar.appendChild(emptyEl);
 
       var contentEl = document.createElement('div');
       contentEl.className = 'map-sidebar-content';
@@ -186,11 +181,8 @@
       PLACES.forEach(function (place, i) {
         var color = CAT_COLORS[place.category] || '#111';
 
-        var inner = place.img
-          ? '<defs><clipPath id="pc' + i + '"><circle cx="20" cy="20" r="10"/></clipPath></defs>' +
-            '<image href="' + place.img + '" x="10" y="10" width="20" height="20" clip-path="url(#pc' + i + ')" preserveAspectRatio="xMidYMid slice"/>'
-          : '<circle cx="20" cy="20" r="10" fill="white"/>' +
-            '<text x="20" y="24" text-anchor="middle" font-family="Roboto Mono,monospace" font-size="11" font-weight="700" fill="' + color + '">' + place.name.charAt(0) + '</text>';
+        var inner = '<circle cx="20" cy="20" r="10" fill="white"/>' +
+          '<text x="20" y="24" text-anchor="middle" font-family="Roboto Mono,monospace" font-size="11" font-weight="700" fill="' + color + '">' + place.name.charAt(0) + '</text>';
 
         var svg = '<svg viewBox="0 0 40 56" width="40" height="56" style="display:block;overflow:visible">' +
           '<path d="M20,4 C11.2,4 4,11.2 4,20 C4,31.2 20,52 20,52 C20,52 36,31.2 36,20 C36,11.2 28.8,4 20,4 Z" fill="' + color + '"/>' +
@@ -204,6 +196,7 @@
         });
 
         var marker = L.marker([place.lat, place.lng], { icon: icon }).addTo(mapInstance);
+        mapMarkers.push(marker);
 
         marker.on('add', function () {
           var el = marker.getElement().querySelector('.map-pin');
@@ -226,21 +219,19 @@
         });
       });
 
-      // Click on map deselects
+      showSidebarOverview();
+
+      // Click on map returns to overview
       mapInstance.on('click', function () {
-        if (activePinEl) { activePinEl.style.transform = ''; activePinEl.style.filter = ''; activePinEl = null; }
-        document.getElementById('map-sidebar-content').innerHTML = '';
-        document.getElementById('map-sidebar-empty').style.display = 'flex';
+        showSidebarOverview();
       });
     }
 
     function showSidebarPlace(place) {
-      var color    = CAT_COLORS[place.category] || '#111';
-      var emptyEl  = document.getElementById('map-sidebar-empty');
+      var color     = CAT_COLORS[place.category] || '#111';
       var contentEl = document.getElementById('map-sidebar-content');
-      var gmapsUrl = 'https://maps.google.com/?q=' + place.lat + ',' + place.lng;
+      var gmapsUrl  = 'https://maps.google.com/?q=' + place.lat + ',' + place.lng;
 
-      emptyEl.style.display = 'none';
       contentEl.innerHTML =
         (place.img
           ? '<img class="map-sidebar-img" src="' + place.img + '" alt="' + place.name + '">'
@@ -252,6 +243,35 @@
         '<div class="map-sidebar-address">' + place.address + '</div>' +
         '<a class="map-sidebar-gmaps" href="' + gmapsUrl + '" target="_blank">↗ open in Google Maps</a>' +
         '</div>';
+    }
+
+    function showSidebarOverview() {
+      if (activePinEl) { activePinEl.style.transform = ''; activePinEl.style.filter = ''; activePinEl = null; }
+      var contentEl = document.getElementById('map-sidebar-content');
+      var html = '<div class="map-ov-list">';
+      PLACES.forEach(function (place, i) {
+        var color = CAT_COLORS[place.category] || '#111';
+        html += '<div class="map-ov-item" data-i="' + i + '">' +
+          '<span class="map-ov-dot" style="background:' + color + '"></span>' +
+          '<div><div class="map-ov-name">' + place.name + '</div>' +
+          '<div class="map-ov-addr">' + place.address + '</div></div>' +
+          '</div>';
+      });
+      html += '</div>';
+      contentEl.innerHTML = html;
+      contentEl.querySelectorAll('.map-ov-item').forEach(function (item) {
+        item.addEventListener('click', function () {
+          var idx    = parseInt(item.dataset.i);
+          var place  = PLACES[idx];
+          var marker = mapMarkers[idx];
+          var el     = marker.getElement().querySelector('.map-pin');
+          if (activePinEl && activePinEl !== el) { activePinEl.style.transform = ''; activePinEl.style.filter = ''; }
+          el.style.transform = 'scale(1.25) translateY(-4px)';
+          el.style.filter    = 'drop-shadow(0 7px 14px rgba(0,0,0,0.4))';
+          activePinEl = el;
+          showSidebarPlace(place);
+        });
+      });
     }
 
     // ── Section definitions ─────────────────────────────────────────────
