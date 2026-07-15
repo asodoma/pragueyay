@@ -96,9 +96,9 @@ header {
 
 .home-body {
   flex: 1;
-  font-family: 'Inter', sans-serif;
-  font-size: 14px;
-  line-height: 1.85;
+  font-family: 'Roboto Mono', monospace;
+  font-size: 12px;
+  line-height: 1.9;
   color: var(--ink);
 }
 

@@ -163,10 +163,12 @@
         zoomControl: true
       });
 
-      L.tileLayer('https://tiles.stadiamaps.com/tiles/stamen_toner/{z}/{x}/{y}{r}.png', {
-        attribution: 'Map tiles by <a href="https://stamen.com">Stamen Design</a>, hosted by <a href="https://stadiamaps.com/">Stadia Maps</a>. Data &copy; <a href="https://openstreetmap.org">OpenStreetMap</a> contributors.',
-        maxZoom: 20
+      L.tileLayer('https://{s}.basemaps.cartocdn.com/light_all/{z}/{x}/{y}{r}.png', {
+        attribution: '&copy; <a href="https://www.openstreetmap.org/copyright">OpenStreetMap</a> &copy; <a href="https://carto.com/">CARTO</a>',
+        subdomains: 'abcd',
+        maxZoom: 19
       }).addTo(mapInstance);
+      mapInstance.getPanes().tilePane.style.filter = 'grayscale(1) contrast(1.8)';
 
       PLACES.forEach(function (place, i) {
         var color = CAT_COLORS[place.category] || '#111';
