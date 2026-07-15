@@ -133,6 +133,20 @@
       sidebar.appendChild(contentEl);
 
       layout.appendChild(sidebar);
+
+      var legend = document.createElement('div');
+      legend.className = 'map-legend';
+      var CAT_ORDER = ['food', 'drink', 'coffee', 'activities', 'vibes'];
+      var seenCats = {};
+      PLACES.forEach(function (p) { seenCats[p.category] = true; });
+      CAT_ORDER.forEach(function (cat) {
+        if (!seenCats[cat]) return;
+        var item = document.createElement('span');
+        item.className = 'map-legend-item';
+        item.innerHTML = '<span class="map-legend-dot" style="background:' + (CAT_COLORS[cat] || '#111') + '"></span>' + cat;
+        legend.appendChild(item);
+      });
+      section.appendChild(legend);
       section.appendChild(layout);
 
       var note = document.createElement('p');

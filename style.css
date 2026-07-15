@@ -454,6 +454,32 @@ nav {
   text-underline-offset: 3px;
 }
 
+/* ─── Map legend ─────────────────────────────────────── */
+
+.map-legend {
+  display: flex;
+  gap: 24px;
+  margin-bottom: 14px;
+  font-family: 'Roboto Mono', monospace;
+  font-size: 10px;
+  letter-spacing: 1.5px;
+  text-transform: uppercase;
+  color: var(--ink);
+}
+
+.map-legend-item {
+  display: flex;
+  align-items: center;
+  gap: 7px;
+}
+
+.map-legend-dot {
+  width: 8px;
+  height: 8px;
+  border-radius: 50%;
+  flex-shrink: 0;
+}
+
 /* ─── Map overview list ──────────────────────────────── */
 
 .map-ov-list {
