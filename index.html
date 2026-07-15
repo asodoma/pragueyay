@@ -15,23 +15,25 @@
     <header>
 
       <!-- ── Logo ──────────────────────────────────────── -->
-      <div class="logo">
-        <div class="logo-mark">
-          <div class="logo-panel">
-            <span>PRA</span>
-            <span>PRA</span>
-            <span>PRA</span>
-            <span>PRA</span>
+      <a href="#home" class="logo-link">
+        <div class="logo">
+          <div class="logo-mark">
+            <div class="logo-panel">
+              <span>PRA</span>
+              <span>PRA</span>
+              <span>PRA</span>
+              <span>PRA</span>
+            </div>
+            <div class="logo-panel">
+              <span>HA</span>
+              <span>GUE</span>
+              <span>GA</span>
+              <span>G</span>
+            </div>
           </div>
-          <div class="logo-panel">
-            <span>HA</span>
-            <span>GUE</span>
-            <span>GA</span>
-            <span>G</span>
-          </div>
+          <span class="logo-yay">yay</span>
         </div>
-        <span class="logo-yay">yay</span>
-      </div>
+      </a>
 
       <!-- ── Navigation ────────────────────────────────── -->
       <nav>
@@ -46,7 +48,19 @@
     </header>
 
     <main>
-      <section id="travel"      class="gallery-section"></section>
+      <section id="home" class="gallery-section hidden">
+        <div class="home-content">
+          <h1 class="home-greeting">Hey stranger!</h1>
+          <div class="home-body">
+            <p>Welcome to the PragueYay! database. I made this page in the celebration of a "WG trip" to the beautiful city of Prague in the summer of 2026.</p>
+            <p>My initial idea was to create my own personal database of nice things to do when you're visiting Prague, and also to provide some basic practical information how to get around and whatnot.</p>
+            <p>However, my ambitions are that this page will live long also after summer 2026. Feel free to explore at whichever time you find yourself in, and/or share it with people who want to visit Prague.</p>
+            <p>Also, this is a community project – if you have a feeling some place is missing from this list please feel free to shoot me an email through <a href="#" target="_blank">this form</a> – let this (and everything) be a community project :)</p>
+          </div>
+          <p class="home-credit">This page is a courtesy of Adéla Sodoma.</p>
+        </div>
+      </section>
+      <section id="travel"      class="gallery-section hidden"></section>
       <section id="cz-food"     class="gallery-section hidden"><div class="gallery-canvas"></div></section>
       <section id="activities"  class="gallery-section hidden"></section>
       <section id="prague-food" class="gallery-section hidden"><div class="gallery-canvas" style="height:520px"></div></section>
@@ -542,7 +556,7 @@
 
     // ── Navigation ──────────────────────────────────────────────────────
     function navigate() {
-      var hash = window.location.hash || '#travel';
+      var hash = window.location.hash || '#home';
       document.querySelectorAll('.gallery-section').forEach(function (s) { s.classList.add('hidden'); });
       document.querySelectorAll('.nav-link').forEach(function (l) { l.classList.remove('active'); });
       var section = document.querySelector(hash);
@@ -554,7 +568,7 @@
             initMap();
             if (mapInstance) mapInstance.invalidateSize();
           }, 50);
-        } else {
+        } else if (hash !== '#home') {
           positionSection(hash.slice(1));
         }
       }
@@ -568,7 +582,7 @@
     navigate();
     window.addEventListener('hashchange', navigate);
     window.addEventListener('resize', function () {
-      var h = (window.location.hash || '#travel').slice(1);
+      var h = (window.location.hash || '#home').slice(1);
       if (h === 'map') { if (mapInstance) mapInstance.invalidateSize(); }
       else positionSection(h);
     });

@@ -66,6 +66,59 @@ header {
   color: var(--ink);
 }
 
+/* ─── Logo link ──────────────────────────────────── */
+
+.logo-link {
+  display: inline-block;
+  text-decoration: none;
+  color: inherit;
+}
+
+/* ─── Homepage ───────────────────────────────────── */
+
+.home-content {
+  padding: 56px 0 80px;
+  max-width: 600px;
+  min-height: 60vh;
+  display: flex;
+  flex-direction: column;
+}
+
+.home-greeting {
+  font-family: 'Crimson Text', Georgia, serif;
+  font-style: italic;
+  font-size: 56px;
+  line-height: 1;
+  color: var(--ink);
+  margin-bottom: 36px;
+  font-weight: 400;
+}
+
+.home-body {
+  flex: 1;
+  font-family: 'Inter', sans-serif;
+  font-size: 14px;
+  line-height: 1.85;
+  color: var(--ink);
+}
+
+.home-body p {
+  margin-bottom: 22px;
+}
+
+.home-body a {
+  color: var(--ink);
+  text-underline-offset: 3px;
+}
+
+.home-credit {
+  font-family: 'Roboto Mono', monospace;
+  font-size: 10.5px;
+  color: #bbb;
+  margin-top: 64px;
+  letter-spacing: 0.03em;
+}
+
 /* ─── Navigation ─────────────────────────────────── */
 
 nav {
