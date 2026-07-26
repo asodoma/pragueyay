@@ -523,26 +523,6 @@
       },
 
 
-      // ── Prague Food & Drink ─────────────────────────────────────────────
-      'prague-food': [
-        // Row 1
-        { label: 'bab;rýže',
-          src: 'assets/activities/babryze.jpg',
-          w: 258, lp: 0.04, t:  28, r: -1.5 },
-        { label: 'skautský institut',
-          src: 'assets/activities/skaut.jpeg',
-          w: 265, lp: 0.37, t:  16, r:  2.0,
-          tip: 'scout institute, placed on the main historical square and is not touristy at all, hidden gem par excellence' },
-        { label: 'Popocafepetl',        w: 255, lp: 0.68, t:  34, r: -1.8,
-          tip: 'the best thing about this place is that they have Chupitos for like 1 euro/shot' },
-        // Row 2
-        { label: 'bar hvězda',          w: 258, lp: 0.04, t: 278, r:  1.5 },
-        { label: 'havelská koruna',      w: 255, lp: 0.37, t: 265, r: -1.8 },
-        { label: 'bulerbyn',
-          src: 'assets/prague-gastro/bulerbyn.jpg',
-          w: 262, lp: 0.68, t: 272, r:  2.0,
-          tip: 'a nicer bar & restaurant, quite nice drinks and slovak halušky' },
-      ],
 
 
       // ── Brno ────────────────────────────────────────────────────────────
@@ -672,6 +652,42 @@
       });
     }
 
+    // ── Prague Food & Drink builder (generated from PLACES) ─────────────
+    function buildPragueFoodSection() {
+      var canvas = document.querySelector('#prague-food .gallery-canvas');
+      var COLS    = 3;
+      var ROW_H   = 275;
+      var START_T = 130;
+      var LP      = [0.03, 0.36, 0.68];
+      var T_OFF   = [0, -14, 10];
+      var ROTS    = [-1.5, 2.0, -1.8, 1.8, -2.2, 1.5, -2.0, 1.8, -1.5, 2.2, -1.8, 1.5,
+                     -1.5, 2.0, -1.8, 1.8, -2.2, 1.5, -2.0, 1.8, -1.5, 2.2, -1.8, 1.5, -1.5, 2.0];
+      var numRows = Math.ceil(PLACES.length / COLS);
+      canvas.style.height = (START_T + numRows * ROW_H + 60) + 'px';
+
+      var defs = [
+        { label: 'note', type: 'info',
+          html: 'For an interactive map version please see the <a href="#map">MAP</a> page',
+          w: 580, t: 20, r: 0, center: true }
+      ];
+
+      PLACES.forEach(function (place, i) {
+        var row = Math.floor(i / COLS);
+        var col = i % COLS;
+        defs.push({
+          label: place.name,
+          src:   place.img,
+          tip:   place.desc,
+          w: 258,
+          lp: LP[col],
+          t:  START_T + row * ROW_H + T_OFF[col],
+          r:  ROTS[i] || 0
+        });
+      });
+
+      buildGalleryInCanvas(canvas, defs);
+    }
+
     // ── Section builder ─────────────────────────────────────────────────
     function buildSection(sectionId, data) {
       if (Array.isArray(data)) {
@@ -741,6 +757,7 @@
 
     // ── Init ────────────────────────────────────────────────────────────
     buildMapSection();
+    buildPragueFoodSection();
     Object.keys(SECTIONS).forEach(function (id) { buildSection(id, SECTIONS[id]); });
     navigate();
     window.addEventListener('hashchange', navigate);
