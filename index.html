@@ -167,8 +167,8 @@
       { name: 'Stromovka',           category: 'vibes',
         lat: 50.1064783, lng: 14.4126968,
         img: 'assets/activities/stromovka.jpg',
-        url: 'https://open.spotify.com/track/19LkQQsX5Zotc38iij8vdW?si=74c7c3a95c9544d2',
-        urlLabel: 'a song about the quarter Letná',
+        urls: ['https://open.spotify.com/track/4lZTOYmwETDSRLiBo1FmN8?si=dc9c3c4b17d44294', 'https://open.spotify.com/track/19LkQQsX5Zotc38iij8vdW?si=74c7c3a95c9544d2'],
+        urlLabels: ['a GUFRAU song about the quarter Letná', 'a Plusminusnula song about Letná'],
         desc: 'A massive park in the Letná area (a historical fancier area where the young well of millenials live)',
         address: 'Královská obora, Praha 7' },
       { name: 'Botanical Garden',    category: 'activities',
@@ -531,7 +531,7 @@
         (place.desc ? '<div class="map-sidebar-desc">' + place.desc + '</div>' : '') +
         '<div class="map-sidebar-address">' + place.address + '</div>' +
         '<div class="map-sidebar-links">' +
-        (place.url ? '<a class="map-sidebar-gmaps" href="' + place.url + '" target="_blank">↗ ' + (place.urlLabel || 'website') + '</a>' : '') +
+        (Array.isArray(place.urls) ? place.urls.map(function(u, i) { return '<a class="map-sidebar-gmaps" href="' + u + '" target="_blank">↗ ' + (place.urlLabels && place.urlLabels[i] || 'website') + '</a>'; }).join('') : (place.url ? '<a class="map-sidebar-gmaps" href="' + place.url + '" target="_blank">↗ ' + (place.urlLabel || 'website') + '</a>' : '')) +
         '<a class="map-sidebar-gmaps" href="' + gmapsUrl + '" target="_blank">↗ open in Google Maps</a>' +
         '</div>' +
         '</div>';
@@ -695,7 +695,7 @@
         (place.desc ? '<div class="map-sidebar-desc">' + place.desc + '</div>' : '') +
         '<div class="map-sidebar-address">' + (place.address || '') + '</div>' +
         '<div class="map-sidebar-links">' +
-        (place.url ? '<a class="map-sidebar-gmaps" href="' + place.url + '" target="_blank">↗ ' + (place.urlLabel || 'website') + '</a>' : '') +
+        (Array.isArray(place.urls) ? place.urls.map(function(u, i) { return '<a class="map-sidebar-gmaps" href="' + u + '" target="_blank">↗ ' + (place.urlLabels && place.urlLabels[i] || 'website') + '</a>'; }).join('') : (place.url ? '<a class="map-sidebar-gmaps" href="' + place.url + '" target="_blank">↗ ' + (place.urlLabel || 'website') + '</a>' : '')) +
         '<a class="map-sidebar-gmaps" href="' + gmapsUrl + '" target="_blank">↗ open in Google Maps</a>' +
         '</div></div>';
       document.getElementById('brno-sidebar-close').style.display = 'block';
