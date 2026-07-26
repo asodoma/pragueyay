@@ -39,8 +39,7 @@
       <nav>
         <a href="#travel"      class="nav-link">Travel to and within Prague</a>
         <a href="#cz-food"     class="nav-link">CZ Food</a>
-        <a href="#activities"  class="nav-link">Activities</a>
-        <a href="#prague-food" class="nav-link">Prague Food &amp; Drink</a>
+<a href="#prague-food" class="nav-link">Prague Food &amp; Drink</a>
         <a href="#map"         class="nav-link">Map</a>
         <a href="#brno"        class="nav-link">Brno</a>
       </nav>
@@ -62,7 +61,6 @@
       </section>
       <section id="travel"      class="gallery-section hidden"></section>
       <section id="cz-food"     class="gallery-section hidden"><div class="gallery-canvas"></div></section>
-      <section id="activities"  class="gallery-section hidden"></section>
       <section id="prague-food" class="gallery-section hidden"><div class="gallery-canvas" style="height:520px"></div></section>
       <section id="map"          class="gallery-section hidden"></section>
       <section id="brno"        class="gallery-section hidden"><div class="gallery-canvas"></div></section>
@@ -220,6 +218,10 @@
         urlLabel: 'gallery website',
         desc: 'Museum of contemporary art in a very nice historical building right in the city centre',
         address: 'Alšovo nábřeží 12, Praha 1' },
+      { name: 'Automat Matuška',      category: 'drink',
+        lat: 50.0980448, lng: 14.4042758,
+        desc: 'Haven\'t been there but it\'s a newly opened craft beer place.',
+        address: 'Dejvická 4, Praha 6' },
     ];
 
     // ── Map builder ─────────────────────────────────────────────────────
@@ -447,83 +449,26 @@
           url: 'https://en.wikipedia.org/wiki/Goulash',
           tip: 'Goulash: beef, onion, paprika, caraway, served with bread dumplings' },
         { label: 'Koprovka',        src: 'assets/czechfood/dill-cream-beef.webp',      w: 252, lp: 0.68, t:  30, r: -2.0,
-          tip: 'Beef with dill sauce, bread dumplings, hard-boiled eggs' },
+          tip: 'Beef with d sauce, bread dumplings, hard-boiled eggs' },
         // Row 2
         { label: 'Smažený sýr',     src: 'assets/czechfood/smazeny-syr.jpg',           w: 258, lp: 0.03, t: 265, r:  2.2,
           url: 'https://en.wikipedia.org/wiki/Sma%C5%BEen%C3%BD_s%C3%BDr',
           tip: 'Fried cheese: Eidam cheese in batter, fries/potatoes and tartar sauce' },
         { label: 'Smažený trojboj', src: 'assets/czechfood/fried-cheese-triathlon.jpg',w: 252, lp: 0.37, t: 253, r: -1.5,
-          tip: 'Fried triathlon: battered Eidam, Niva (the communist Roquefort) and either champignons or Hermelín (the Czech Camembert)' },
+          tip: 'Frider triathlon: Battered eidam, niva (the communist roquefort) and either champignons or hermelín (the czech camembert)' },
         { label: 'Kofola',          src: 'assets/czechfood/kofola.jpg',                w: 252, lp: 0.68, t: 268, r:  1.2,
           url: 'https://en.wikipedia.org/wiki/Kofola',
-          tip: 'Czech cola: more herbal than Coca-Cola with a hint of liquorice. Legend has it it was developed either as a communist alternative to western Coca-Cola, or as part of a government initiative to utilise surplus caffeine from coffee roasting' },
+          tip: 'cola limo, it\'s more herbal and has a bit of liquorice (it is traded that it was develop either as a communist alternative to western Coca Cola, or as part of a government initiative to utilise surplus caffeine produced during coffee roasting)' },
         // Row 3
         { label: 'Ovocné knedlíky', src: 'assets/czechfood/fruit-dumplings.jpg',       w: 248, lp: 0.02, t: 508, r: -2.2,
           url: 'https://en.wikipedia.org/wiki/Ovocn%C3%A9_knedl%C3%ADky',
           tip: 'Fruit dumplings: sweet dough filled with plums or strawberries, topped with melted butter, sugar and cottage cheese' },
         { label: 'Řízek',           src: 'assets/czechfood/rizek.jpg',                 w: 248, lp: 0.35, t: 494, r:  1.8,
           url: 'https://en.wikipedia.org/wiki/%C5%98%C3%ADzek',
-          tip: 'Schnitzel: the same thing as the German one but better' },
+          tip: 'Schnitzel: the same thing as the german one but better' },
         { label: 'Chlebíčky',       src: 'assets/czechfood/chlebicky.jpg',             w: 248, lp: 0.67, t: 510, r: -1.5,
-          tip: 'Open-faced sandwiches: all kinds of stuff your heart desires, but usually a mayonnaise-based spread, ham, egg and pickled cucumber' },
+          tip: 'open-faced sandwiches with all kinds of stuff your heart desires, but usually some kind of a mayonnaise-based spread, ham, egg and pickled cucumber' },
       ],
-
-      // ── Activities ──────────────────────────────────────────────────────
-      'activities': {
-        subgroups: [
-          {
-            title: 'Museums',
-            height: 300,
-            cards: [
-              { label: 'DOX',
-                src: 'assets/activities/dox.jpg',
-                w: 258, lp: 0.04, t: 28, r: -1.5 },
-              { label: 'Národní technické muzeum',
-                src: 'assets/activities/technicke.jpg',
-                w: 268, lp: 0.37, t: 16, r:  1.8 },
-              { label: 'Rudolfinum',
-                src: 'assets/activities/rudolfinum.jpg',
-                w: 256, lp: 0.68, t: 34, r: -2.0 },
-            ]
-          },
-          {
-            title: 'Gastro',
-            height: 420,
-            cards: [
-              { label: 'Beer tasting — Matuška',
-                src: 'assets/activities/matuska.jpg',
-                w: 230, lp: 0.04, t: 22, r:  2.0 },
-              { label: 'Pho',
-                w: 252, lp: 0.38, t: 12, r: -1.5 },
-              { label: 'Sláva Ukrajině',
-                src: 'assets/activities/borsc.jpg',
-                w: 258, lp: 0.68, t: 30, r:  1.8 },
-            ]
-          },
-          {
-            title: 'Misc',
-            height: 550,
-            cards: [
-              { label: 'Darts — Letná',
-                w: 262, lp: 0.05, t: 22, r: -1.8 },
-              { label: 'Bouldering',
-                src: 'assets/activities/boulder.jpg',
-                w: 272, lp: 0.52, t: 12, r:  2.0 },
-              { label: 'Olšanské hřbitovy',
-                src: 'assets/activities/cemetry.jpg',
-                w: 258, lp: 0.04, t: 295, r:  1.5 },
-              { label: 'Cheese triathlon',
-                src: 'assets/activities/cheese.jpg',
-                w: 255, lp: 0.36, t: 282, r: -2.0 },
-              { label: 'Kasárny karlín',
-                w: 258, lp: 0.68, t: 290, r:  1.8 },
-            ]
-          },
-        ]
-      },
-
-
-
 
       // ── Brno ────────────────────────────────────────────────────────────
       'brno': [
