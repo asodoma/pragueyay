@@ -1,0 +1,62 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Suggest a Place — Prague Yay</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Crimson+Text:ital@1&family=Inter:wght@300;400;700&family=Roboto+Mono&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="style.css">
+</head>
+<body>
+  <div class="container">
+    <header>
+      <a href="index.html#home" class="logo-link">
+        <div class="logo">
+          <div class="logo-mark">
+            <div class="logo-panel">
+              <span>PRA</span>
+              <span>PRA</span>
+              <span>PRA</span>
+              <span>PRA</span>
+            </div>
+            <div class="logo-panel">
+              <span>HA</span>
+              <span>GUE</span>
+              <span>GA</span>
+              <span>G</span>
+            </div>
+          </div>
+          <span class="logo-yay">yay</span>
+        </div>
+      </a>
+    </header>
+
+    <main>
+      <div class="suggest-content">
+        <h1 class="home-greeting">Got a tip?</h1>
+        <p class="suggest-intro">Know a place in Prague or Brno that deserves a pin on the map? Tell me about it and I'll add it.</p>
+
+        <form class="suggest-form" action="https://formspree.io/f/YOUR_FORM_ID" method="POST" enctype="multipart/form-data">
+          <input type="hidden" name="_subject" value="New place suggestion — PragueYay!">
+
+          <label class="suggest-label" for="place-name">Name of the place <span class="req">*</span></label>
+          <input class="suggest-input" type="text" id="place-name" name="Name of the place" required>
+
+          <label class="suggest-label" for="place-why">Why is it nice? <span class="req">*</span></label>
+          <textarea class="suggest-input suggest-textarea" id="place-why" name="Why is it nice" rows="6" required></textarea>
+
+          <label class="suggest-label" for="place-signature">Signature <span class="opt">(optional — who's the tip from?)</span></label>
+          <input class="suggest-input" type="text" id="place-signature" name="Signature" placeholder="e.g. your name">
+
+          <label class="suggest-label" for="place-photo">Photo <span class="opt">(optional)</span></label>
+          <input class="suggest-input suggest-file" type="file" id="place-photo" name="Photo" accept="image/*">
+
+          <button class="suggest-submit" type="submit">Send tip</button>
+        </form>
+      </div>
+    </main>
+  </div>
+</body>
+</html>
