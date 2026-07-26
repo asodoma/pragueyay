@@ -574,6 +574,8 @@ nav {
   line-height: 1.75;
   color: var(--ink);
   text-align: center;
+  background: var(--bg);
+  box-shadow: 4px 4px 0 var(--ink);
 }
 
 .food-banner a {
