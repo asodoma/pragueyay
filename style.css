@@ -475,6 +475,7 @@ nav {
 }
 
 .map-sidebar-gmaps {
+  display: block;
   font-size: 11px;
   color: var(--ink);
   text-decoration: underline;
