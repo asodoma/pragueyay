@@ -231,12 +231,14 @@
           ? '<img class="map-sidebar-img" src="' + place.img + '" alt="' + place.name + '">'
           : '<div class="map-sidebar-no-img" style="border-color:' + color + '"><span style="color:' + color + ';font-size:36px;font-family:\'Roboto Mono\',monospace;font-weight:700">' + place.name.charAt(0) + '</span></div>') +
         '<div class="map-sidebar-body">' +
+        '<button class="map-sidebar-back">← all places</button>' +
         '<div class="map-sidebar-cat" style="color:' + color + '">' + place.category + '</div>' +
         '<div class="map-sidebar-name">' + place.name + '</div>' +
         (place.desc ? '<div class="map-sidebar-desc">' + place.desc + '</div>' : '') +
         '<div class="map-sidebar-address">' + place.address + '</div>' +
         '<a class="map-sidebar-gmaps" href="' + gmapsUrl + '" target="_blank">↗ open in Google Maps</a>' +
         '</div>';
+      contentEl.querySelector('.map-sidebar-back').addEventListener('click', showSidebarOverview);
     }
 
     function showSidebarOverview() {
