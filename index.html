@@ -739,7 +739,7 @@
         subgroups: [
           {
             title: null,
-            height: 440,
+            height: 660,
             cards: [
               { label: 'How to get around Czechia?',
                 type: 'info',
@@ -747,15 +747,17 @@
                 html: 'Great news for you: Czech Republic has actually one of the greatest public transport systems in the world. In my experience, it is very comparable to Switzerland, in terms of frequency and reliability – but it is obviously just a fraction of the price.<br><br>The best way to get around are either trains or buses. Trains have different providers, essentially two, and these are either the state-owned České dráhy, and Regiojet, which is privately owned by Mr. Roman Jančura, but nonetheless is always preferred due to the cheap snacks and desserts you can buy while on the road (yes it is a bribe).<br><br>You can find all the connections quite reliably on Google Maps, but also the site IDOS.cz is great for more detailed information. You can also often buy the tickets for any kind of public transport there in advance.' },
               { label: 'Regiojet',
                 src: 'assets/travel/regiojet-train.jpg',
+                caption: 'Privately owned by Mr. Roman Jančura, but nonetheless always preferred due to the cheap snacks and desserts you can buy while on the road (yes it is a bribe).',
                 w: 255, lp: 0.64, t: 20, r: 1.5 },
               { label: 'České dráhy',
                 src: 'assets/travel/vlak.jpg',
-                w: 255, lp: 0.64, t: 220, r: -1.8 },
+                caption: 'The state-owned train operator.',
+                w: 255, lp: 0.64, t: 370, r: -1.8 },
             ]
           },
           {
             title: null,
-            height: 340,
+            height: 400,
             cards: [
               { label: 'How to get around Prague?',
                 type: 'info',
@@ -763,6 +765,7 @@
                 html: 'We have metro, trams, trolleybuses and buses. What a treat.<br><br><b>The prices are the following:</b><br><br><b>30 min ticket</b> — 36 Kč <span style="color:#aaa">(~1.50 €)</span><br><b>90 min ticket</b> — 46 Kč <span style="color:#aaa">(~1.85 €)</span><br><b>24h ticket</b> — 140 Kč <span style="color:#aaa">(~5.50 €)</span><br><b>72h ticket</b> — 340 Kč <span style="color:#aaa">(~13.50 €)</span><br><br><a href="https://www.dpp.cz" target="_blank">↗ dpp.cz</a> &nbsp;·&nbsp; <a href="https://idos.cz" target="_blank">↗ idos.cz</a><br><br>Good thing to know is also that if you are a student with an ISIC card, you can get around Prague for the incredible amount of just 130 Kč <span style="color:#aaa">(~5 €)</span>.<br><br><b>Monthly student ticket</b> — 130 Kč <span style="color:#aaa">(~5 €)</span>' },
               { label: 'DPP — Metro &amp; Tram',
                 src: 'assets/travel/prague-tram.jpg',
+                caption: 'Prague\'s public transport operator — metro, trams, trolleybuses and buses.',
                 w: 255, lp: 0.64, t: 20, r: -1.8 },
             ]
           },
@@ -857,6 +860,12 @@
           img.src = def.src;
           img.alt = def.label;
           body.appendChild(img);
+          if (def.caption) {
+            var cap = document.createElement('div');
+            cap.className = 'win-caption';
+            cap.innerHTML = def.caption;
+            body.appendChild(cap);
+          }
         } else {
           var ph = document.createElement('div');
           ph.className = 'win-placeholder';

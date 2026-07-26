@@ -236,6 +236,14 @@ nav {
   pointer-events: none;
 }
 
+.win-caption {
+  line-height: 1.65;
+  padding: 12px 14px 15px;
+  font-family: 'Roboto Mono', monospace;
+  font-size: 11px;
+  color: #555;
+}
+
 /* Placeholder shown before real images are added */
 .win-placeholder {
   width: 100%;
@@ -710,5 +718,36 @@ nav {
     height: 320px;
     border-left: none;
     border-top: 1px solid var(--ink);
+  }
+
+  /* Travel page: drop the draggable/rotated window layout in favor of
+     plain stacked boxes that size themselves to the viewport. */
+  #travel .gallery-canvas {
+    position: static;
+    height: auto !important;
+    display: flex;
+    flex-direction: column;
+    gap: 20px;
+    padding-bottom: 8px;
+  }
+
+  #travel .win {
+    position: static !important;
+    left: auto !important;
+    top: auto !important;
+    width: 100% !important;
+    transform: none !important;
+  }
+
+  #travel .win:hover {
+    box-shadow: none;
+  }
+
+  #travel .win-bar {
+    cursor: default;
+  }
+
+  #travel .subgroup {
+    margin-top: 36px;
   }
 }
