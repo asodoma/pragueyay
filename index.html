@@ -39,8 +39,8 @@
       <nav>
         <a href="#travel"      class="nav-link">Travel to and within Prague</a>
         <a href="#cz-food"     class="nav-link">CZ Food</a>
-<a href="#prague-food" class="nav-link">Prague Food &amp; Drink</a>
-        <a href="#map"         class="nav-link">Map</a>
+        <a href="#prague-food" class="nav-link">Prague – Picture View</a>
+        <a href="#map"         class="nav-link">Prague Map</a>
         <a href="#brno"        class="nav-link">Brno</a>
         <a href="#music"       class="nav-link">Music</a>
       </nav>
@@ -126,11 +126,12 @@
         address: 'Polská 1a, Praha 2' },
       { name: 'Popocafepetl Michalská', category: 'drink',
         lat: 50.0853237, lng: 14.4198327,
-        img: 'assets/prague-gastro/popocafepetl-michalska.jpg',
+        img: 'assets/prague-gastro/popocafepetl-michalska.jpeg',
         desc: 'They have chupitos for 50 czk (2 euros) and that\'s all that you need to know',
         address: 'Michalská 15, Praha 1' },
       { name: 'Popocafepetl Na struze', category: 'drink',
         lat: 50.0794944, lng: 14.4146567,
+        img: 'assets/prague-gastro/popocafepetl-nastruze.jpg',
         desc: 'This Popocafepetl doesn\'t have cheap chupitos and it\'s the more louder/dirtier/party type of a bar/pub for people under 30',
         address: 'Na struze 4, Praha 1' },
       { name: 'Klub AVU',            category: 'drink',
@@ -941,16 +942,30 @@
       var defs = [];
 
       PLACES.forEach(function (place, i) {
-        var row = Math.floor(i / COLS);
-        var col = i % COLS;
+        // Skip bab;rýže Florenc (i=2) and bab;rýže Anny Letenské (i=3) - they're merged into first one
+        if (i === 2 || i === 3) return;
+
+        var label = place.name;
+        var img = place.img;
+        var tip = place.desc;
+
+        // For the first bab;rýže, combine all three
+        if (i === 1) {
+          label = 'bab;rýže (3 locations)';
+          img = place.img;
+          tip = PLACES[1].desc + '\n\n' + PLACES[2].name + ': ' + PLACES[2].desc + '\n\n' + PLACES[3].name + ': ' + PLACES[3].desc;
+        }
+
+        var row = Math.floor((i - (i > 3 ? 2 : 0)) / COLS);
+        var col = (i - (i > 3 ? 2 : 0)) % COLS;
         defs.push({
-          label: place.name,
-          src:   place.img,
-          tip:   place.desc,
+          label: label,
+          src:   img,
+          tip:   tip,
           w: 258,
           lp: LP[col],
           t:  row * ROW_H + T_OFF[col],
-          r:  ROTS[i] || 0
+          r:  ROTS[i - (i > 3 ? 2 : 0)] || 0
         });
       });
 
