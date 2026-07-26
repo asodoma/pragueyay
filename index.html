@@ -76,15 +76,16 @@
     // ── Map: categories & places ────────────────────────────────────────
 
     var CAT_COLORS = {
-      food:       '#D7141A',
-      drink:      '#1A3D7A',
-      coffee:     '#8B5E3C',
-      activities: '#2D7A3A',
-      vibes:      '#111111'
+      food:            '#D7141A',
+      drink:           '#1A3D7A',
+      'food / drink':  '#6B3FA0',
+      coffee:          '#8B5E3C',
+      activities:      '#2D7A3A',
+      vibes:           '#111111'
     };
 
     var PLACES = [
-      { name: 'Bulerbyn',           category: 'drink',
+      { name: 'Bulerbyn',           category: 'food / drink',
         lat: 50.0746237, lng: 14.4456846,
         img: 'assets/prague-gastro/bulerbyn.jpg',
         desc: 'This place is extremely pretty. They do: dinners, beer, and quite nice and fancy cocktails. On a scale of fanciness it is on the slightly more expensive side, but it is also very laid back and ran by young people (🤪). It is also located in Vinohrady, which is a considered a historical fancy residential area where most people would wish to once live.',
@@ -109,6 +110,38 @@
         img: 'assets/activities/skaut.jpeg',
         desc: 'The homebase of the Prague scouts — a mix of a cafe and a pub, shockingly central right next to Staroměstské náměstí. Big indoor area and a multi-floor courtyard balcony. Frequent social events: documentary screenings, outdoor cinemas, lectures.',
         address: 'Staroměstské náměstí 4, Praha 1' },
+      { name: 'Havelská Koruna',     category: 'food',
+        lat: 50.0855253, lng: 14.4216649,
+        desc: 'A non-touristy buffet-style place serving exclusively Czech cuisine. If you want to try traditional Czech food somewhere that actually locals eat at, this is probably the best pick.',
+        address: 'Havelská 21, Praha 1' },
+      { name: 'Bar Hvězda',          category: 'food / drink',
+        lat: 50.0788772, lng: 14.4421544,
+        desc: 'Ran by the same people behind Bulerbyn. During the day it\'s a coffee place, in the evening it becomes a bar and pub. They also have quite nice food.',
+        address: 'Polská 1a, Praha 2' },
+      { name: 'Popocafepetl Michalská', category: 'drink',
+        lat: 50.0853237, lng: 14.4198327,
+        desc: 'They have chupitos for 50 Kč (2 €) and that\'s all that you need to know.',
+        address: 'Michalská 15, Praha 1' },
+      { name: 'Popocafepetl Na struze', category: 'drink',
+        lat: 50.0794944, lng: 14.4146567,
+        desc: 'The louder, dirtier, more party-type Popocafepetl — no cheap chupitos here. For people under 30 who want a proper night out.',
+        address: 'Na struze 4, Praha 1' },
+      { name: 'Klub AVU',            category: 'drink',
+        lat: 50.1027104, lng: 14.4239993,
+        desc: 'Technically (and maybe also practically) part of the Academy of Fine Arts in Prague. Coffee place during the day, bar during the night. The atmosphere has always been very nice. Right next to Stromovka — the biggest park in Prague.',
+        address: 'U Akademie 4, Praha 7' },
+      { name: 'Dno pytle',           category: 'drink',
+        lat: 50.0771055, lng: 14.4428565,
+        desc: 'Craft beer pub! And right next to it: a smash burger place I haven\'t been to but have heard a lot about — "FATFUCK smashed burgers".',
+        address: 'Vinohradská 63, Praha 2' },
+      { name: 'Klub Ajeto',          category: 'drink',
+        lat: 50.1006662, lng: 14.4223341,
+        desc: 'Dart and billiard bar with a trashier but authentic aesthetic. Love.',
+        address: 'Šmeralova 5, Praha 7' },
+      { name: 'Kasárna Karlín',      category: 'drink',
+        lat: 50.0901772, lng: 14.4431982,
+        desc: 'A super nice community cultural centre in the historical Karlín barracks. Concerts, summer outdoor cinemas, or lectures in an emptied-out swimming pool. Last year they had a run-in with an obsessed guy behind the "A Noise-free Czechia" initiative and had to abruptly close — a nation-wide drama. Mat213 wrote a funny song about it (Česko bez šuku). Their catchphrase: "this isn\'t Berlin, this is Karlín".',
+        address: 'Prvního pluku 20, Praha 8' },
     ];
 
     // ── Map builder ─────────────────────────────────────────────────────
@@ -149,7 +182,7 @@
 
       var legend = document.createElement('div');
       legend.className = 'map-legend';
-      var CAT_ORDER = ['food', 'drink', 'coffee', 'activities', 'vibes'];
+      var CAT_ORDER = ['food', 'drink', 'food / drink', 'coffee', 'activities', 'vibes'];
       var seenCats = {};
       PLACES.forEach(function (p) { seenCats[p.category] = true; });
       CAT_ORDER.forEach(function (cat) {
