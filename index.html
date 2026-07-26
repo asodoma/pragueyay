@@ -137,6 +137,14 @@
       contentEl.id = 'map-sidebar-content';
       sidebar.appendChild(contentEl);
 
+      var closeBtn = document.createElement('button');
+      closeBtn.id = 'map-sidebar-close';
+      closeBtn.className = 'map-sidebar-back';
+      closeBtn.textContent = '×';
+      closeBtn.style.display = 'none';
+      closeBtn.addEventListener('click', showSidebarOverview);
+      sidebar.appendChild(closeBtn);
+
       layout.appendChild(sidebar);
 
       var legend = document.createElement('div');
@@ -236,18 +244,19 @@
           ? '<img class="map-sidebar-img" src="' + place.img + '" alt="' + place.name + '">'
           : '<div class="map-sidebar-no-img" style="border-color:' + color + '"><span style="color:' + color + ';font-size:36px;font-family:\'Roboto Mono\',monospace;font-weight:700">' + place.name.charAt(0) + '</span></div>') +
         '<div class="map-sidebar-body">' +
-        '<button class="map-sidebar-back">← all places</button>' +
         '<div class="map-sidebar-cat" style="color:' + color + '">' + place.category + '</div>' +
         '<div class="map-sidebar-name">' + place.name + '</div>' +
         (place.desc ? '<div class="map-sidebar-desc">' + place.desc + '</div>' : '') +
         '<div class="map-sidebar-address">' + place.address + '</div>' +
         '<a class="map-sidebar-gmaps" href="' + gmapsUrl + '" target="_blank">↗ open in Google Maps</a>' +
         '</div>';
-      contentEl.querySelector('.map-sidebar-back').addEventListener('click', showSidebarOverview);
+      document.getElementById('map-sidebar-close').style.display = 'block';
     }
 
     function showSidebarOverview() {
       if (activePinEl) { activePinEl.style.transform = ''; activePinEl.style.filter = ''; activePinEl = null; }
+      var closeBtn = document.getElementById('map-sidebar-close');
+      if (closeBtn) closeBtn.style.display = 'none';
       var contentEl = document.getElementById('map-sidebar-content');
       var html = '<div class="map-ov-list">';
       PLACES.forEach(function (place, i) {

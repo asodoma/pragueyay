@@ -374,6 +374,7 @@ nav {
   flex-direction: column;
   overflow: hidden;
   font-family: 'Roboto Mono', monospace;
+  position: relative;
 }
 
 .map-sidebar-empty {
@@ -420,18 +421,19 @@ nav {
 }
 
 .map-sidebar-back {
-  display: inline-block;
+  position: absolute;
+  bottom: 14px;
+  right: 14px;
   background: none;
   border: none;
-  padding: 0;
-  margin-bottom: 14px;
+  padding: 4px;
   font-family: 'Roboto Mono', monospace;
-  font-size: 9px;
-  letter-spacing: 1.5px;
-  text-transform: uppercase;
-  color: #aaa;
+  font-size: 18px;
+  line-height: 1;
+  color: #ccc;
   cursor: pointer;
   transition: color 0.15s ease;
+  z-index: 10;
 }
 
 .map-sidebar-back:hover {
