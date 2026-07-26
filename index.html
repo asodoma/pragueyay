@@ -148,6 +148,60 @@
         img: 'assets/prague-gastro/karlin.jpg',
         desc: 'A super nice community cultural centre in the historical Karlín barracks. Concerts, summer outdoor cinemas, or lectures in an emptied-out swimming pool. Last year they had a run-in with an obsessed guy behind the "A Noise-free Czechia" initiative and had to abruptly close — a nation-wide drama. Mat213 wrote a funny song about it (Česko bez šuku). Their catchphrase: "this isn\'t Berlin, this is Karlín".',
         address: 'Prvního pluku 20, Praha 8' },
+      { name: 'DOX',                 category: 'activities',
+        lat: 50.1067852, lng: 14.4475546,
+        img: 'assets/activities/dox.jpg',
+        url: 'https://www.dox.cz/program/uhel-pohledu-4-odolnost',
+        urlLabel: 'current exhibition',
+        desc: 'Centre for contemporary art in Holešovice. Current main exhibition (May 2026 – Apr 2027): Point of View 4: Resilience — exploring resilience as a form of resistance that isn\'t always visible but changes how we perceive the world, through contemporary art, slowness, and shared experience.',
+        address: 'Poupětova 1, Praha 7' },
+      { name: 'Stromovka',           category: 'vibes',
+        lat: 50.1064783, lng: 14.4126968,
+        img: 'assets/activities/stromovka.jpg',
+        desc: 'A massive park in the Letná area — the historically fancier part of Prague where young well-off millennials live. Home to the Planetarium and a lovely place to spend a few hours.',
+        address: 'Královská obora, Praha 7' },
+      { name: 'Botanical Garden',    category: 'activities',
+        lat: 50.0705306, lng: 14.4195295,
+        desc: 'The city botanical garden tucked below Vyšehrad. Had a wonderful exhibition called A Botanical Odyssey — tracing the history of plants from the first terrestrial species 432 million years ago through Palaeozoic coal-forming swamps to the plants around us today.',
+        address: 'Na Slupi 16, Praha 2' },
+      { name: 'Štvanice',            category: 'vibes',
+        lat: 50.0956597, lng: 14.4392666,
+        img: 'assets/activities/stvanice.webp',
+        desc: 'An island in the middle of the city with a park — grab a drink from the outdoor pub or bring a picnic. The last time I was there I got extremely high by accident, if that helps to paint the picture.',
+        address: 'Štvanice, Praha 7' },
+      { name: 'Museum of Prague',    category: 'activities',
+        lat: 50.0899706, lng: 14.4384965,
+        url: 'https://www.muzeumprahy.cz/en/exhibitions-and-events/',
+        urlLabel: 'exhibitions & events',
+        desc: 'Very recently re-opened city museum with great interactive exhibitions. Current highlights: The City in Time (19th century brought to life), CLOUD (interactive), Prague in the Time of Charles IV (multimedia journey through 14th-century Prague), and Prague 1606 (a 9-metre animated depiction of the city under Rudolf II).',
+        address: 'Karlínské nám. 9, Praha 8' },
+      { name: 'Pilsner Urquell Experience', category: 'activities',
+        lat: 50.0839806, lng: 14.4229148,
+        img: 'assets/activities/pilsner.jpg',
+        url: 'https://www.pilsnerexperience.com/en',
+        urlLabel: 'book tickets',
+        desc: 'The Czech version of the Lindt museum lol. The story of the world\'s first golden beer, plus you pour beers like a professional tapster. Named Europe\'s Leading Beer Tour Visitor Experience 2025 at the World Travel Awards ("the Oscars of tourism"). Non-alcoholic options available. Best booked in advance. 579 Kč (~24 €), includes 2 drinks.',
+        address: '28. října 13, Praha 1' },
+      { name: 'Planetarium',         category: 'activities',
+        lat: 50.1055042, lng: 14.4275128,
+        img: 'assets/activities/planetarium.webp',
+        desc: 'After 2 years of renovation, now apparently the most modern planetarium in the world thanks to the new LED dome. Multiple different projections throughout the day. Closed on Mondays — book in advance.',
+        address: 'Astronomická 1, Praha 7' },
+      { name: 'Bouldering Free Solo', category: 'activities',
+        lat: 50.0371560, lng: 14.5056736,
+        img: 'assets/activities/freesolo.jpg',
+        desc: 'A bouldering wall on the rooftop of a panelák — a residential block of flats from the communist era, surrounded by identical towers. Right below the actual bouldering is a pub running the whole thing. 200 Kč (9 €).',
+        address: 'Donovalská 1662, Praha 11' },
+      { name: 'Bouldering SmíchOFF', category: 'activities',
+        lat: 50.0547181, lng: 14.4052429,
+        img: 'assets/activities/smichoff.jpeg',
+        desc: 'Probably the nicest bouldering gym in Prague. 230–280 Kč (10–12 €) + 3 € for shoe rental.',
+        address: 'Křížová 6, Praha 5' },
+      { name: 'Bouldering Karlín',   category: 'activities',
+        lat: 50.0935161, lng: 14.4533487,
+        img: 'assets/activities/boulderkarlin.webp',
+        desc: 'A big bouldering gym in Karlín. 240–300 Kč (10–13 €) + 4 € for shoe rental.',
+        address: 'Křižíkova 91a, Praha 8' },
     ];
 
     // ── Map builder ─────────────────────────────────────────────────────
@@ -287,7 +341,10 @@
         '<div class="map-sidebar-name">' + place.name + '</div>' +
         (place.desc ? '<div class="map-sidebar-desc">' + place.desc + '</div>' : '') +
         '<div class="map-sidebar-address">' + place.address + '</div>' +
+        '<div class="map-sidebar-links">' +
+        (place.url ? '<a class="map-sidebar-gmaps" href="' + place.url + '" target="_blank">↗ ' + (place.urlLabel || 'website') + '</a>' : '') +
         '<a class="map-sidebar-gmaps" href="' + gmapsUrl + '" target="_blank">↗ open in Google Maps</a>' +
+        '</div>' +
         '</div>';
       document.getElementById('map-sidebar-close').style.display = 'block';
     }

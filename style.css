@@ -468,6 +468,12 @@ nav {
   margin-bottom: 16px;
 }
 
+.map-sidebar-links {
+  display: flex;
+  flex-direction: column;
+  gap: 6px;
+}
+
 .map-sidebar-gmaps {
   font-size: 11px;
   color: var(--ink);
