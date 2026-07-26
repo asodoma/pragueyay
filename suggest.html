@@ -38,7 +38,7 @@
         <h1 class="home-greeting">Got a tip?</h1>
         <p class="suggest-intro">Know a place in Prague or Brno that deserves a pin on the map? Tell me about it and I'll add it.</p>
 
-        <form class="suggest-form" action="https://formspree.io/f/mzdnyrpb" method="POST" enctype="multipart/form-data">
+        <form class="suggest-form" action="https://formspree.io/f/mzdnyrpb" method="POST">
           <input type="hidden" name="_subject" value="New place suggestion — PragueYay!">
 
           <label class="suggest-label" for="place-name">Name of the place <span class="req">*</span></label>
@@ -49,9 +49,6 @@
 
           <label class="suggest-label" for="place-signature">Signature <span class="opt">(optional — who's the tip from?)</span></label>
           <input class="suggest-input" type="text" id="place-signature" name="Signature" placeholder="e.g. your name">
-
-          <label class="suggest-label" for="place-photo">Photo <span class="opt">(optional)</span></label>
-          <input class="suggest-input suggest-file" type="file" id="place-photo" name="Photo" accept="image/*">
 
           <button class="suggest-submit" type="submit">Send tip</button>
         </form>
