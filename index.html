@@ -109,6 +109,7 @@
         desc: 'The homebase of the Prague scouts — a mix of a cafe and a pub, shockingly central right next to Staroměstské náměstí. Big indoor area and a multi-floor courtyard balcony. Frequent social events: documentary screenings, outdoor cinemas, lectures.',
         address: 'Staroměstské náměstí 4, Praha 1' },
       { name: 'Havelská Koruna',     category: 'food',
+        img: 'assets/activities/havelskakoruna.jpg',
         lat: 50.0855253, lng: 14.4216649,
         desc: 'A non-touristy buffet-style place with exclusively czech cuisine, if you want to try the cuisine somewhere then this is probably the best place',
         address: 'Havelská 21, Praha 1' },
@@ -204,6 +205,7 @@
         address: 'Křižíkova 91a, Praha 8' },
       { name: 'Pho Bar',             category: 'food',
         lat: 50.0906582, lng: 14.4365540,
+        img: 'assets/activities/phobar.jpg',
         desc: 'Asian restaurants are everywhere in Prague, but this one is funky because they offer a Pho for two, which is like 1+ liter of pho to share with another person, so what I generally appreciate about this particular place is that someone had an idea like this and just decided to execute it.',
         address: 'Na Poříčí 43, Praha 1' },
       { name: 'Olšanské hřbitovy',   category: 'vibes',
@@ -220,6 +222,7 @@
         address: 'Alšovo nábřeží 12, Praha 1' },
       { name: 'Automat Matuška',      category: 'drink',
         lat: 50.0980448, lng: 14.4042758,
+        img: 'assets/activities/matuska.jpg',
         desc: 'Haven\'t been there but it\'s a newly opened craft beer place.',
         address: 'Dejvická 4, Praha 6' },
     ];
@@ -599,22 +602,25 @@
 
     // ── Prague Food & Drink builder (generated from PLACES) ─────────────
     function buildPragueFoodSection() {
-      var canvas = document.querySelector('#prague-food .gallery-canvas');
+      var section = document.getElementById('prague-food');
+      var canvas  = section.querySelector('.gallery-canvas');
       var COLS    = 3;
       var ROW_H   = 275;
-      var START_T = 130;
       var LP      = [0.03, 0.36, 0.68];
-      var T_OFF   = [0, -14, 10];
+      var T_OFF   = [20, 6, 30];
       var ROTS    = [-1.5, 2.0, -1.8, 1.8, -2.2, 1.5, -2.0, 1.8, -1.5, 2.2, -1.8, 1.5,
                      -1.5, 2.0, -1.8, 1.8, -2.2, 1.5, -2.0, 1.8, -1.5, 2.2, -1.8, 1.5, -1.5, 2.0];
       var numRows = Math.ceil(PLACES.length / COLS);
-      canvas.style.height = (START_T + numRows * ROW_H + 60) + 'px';
+      canvas.style.height = (numRows * ROW_H + 60) + 'px';
+      canvas.style.marginTop = '20px';
 
-      var defs = [
-        { label: 'note', type: 'info',
-          html: 'For an interactive map version please see the <a href="#map">MAP</a> page',
-          w: 580, t: 20, r: 0, center: true }
-      ];
+      // Static banner above the canvas
+      var banner = document.createElement('div');
+      banner.className = 'food-banner';
+      banner.innerHTML = 'For an interactive map version please see the <a href="#map">MAP</a> page';
+      section.insertBefore(banner, canvas);
+
+      var defs = [];
 
       PLACES.forEach(function (place, i) {
         var row = Math.floor(i / COLS);
@@ -625,7 +631,7 @@
           tip:   place.desc,
           w: 258,
           lp: LP[col],
-          t:  START_T + row * ROW_H + T_OFF[col],
+          t:  row * ROW_H + T_OFF[col],
           r:  ROTS[i] || 0
         });
       });
