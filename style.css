@@ -77,7 +77,7 @@ header {
 /* ─── Homepage ───────────────────────────────────── */
 
 .home-content {
-  padding: 56px 0 80px;
+  padding: 12px 0 80px;
   max-width: 600px;
   min-height: 60vh;
   display: flex;
@@ -720,18 +720,24 @@ nav {
     border-top: 1px solid var(--ink);
   }
 
-  /* Travel page: drop the draggable/rotated window layout in favor of
-     plain stacked boxes that size themselves to the viewport. */
-  #travel .gallery-canvas {
+  /* Travel, CZ Food & Prague Picture View: drop the draggable/rotated
+     window layout in favor of plain stacked boxes that size themselves
+     to the viewport. */
+  #travel .gallery-canvas,
+  #cz-food .gallery-canvas,
+  #prague-food .gallery-canvas {
     position: static;
     height: auto !important;
+    margin-top: 0 !important;
     display: flex;
     flex-direction: column;
     gap: 20px;
     padding-bottom: 8px;
   }
 
-  #travel .win {
+  #travel .win,
+  #cz-food .win,
+  #prague-food .win {
     position: static !important;
     left: auto !important;
     top: auto !important;
@@ -739,11 +745,15 @@ nav {
     transform: none !important;
   }
 
-  #travel .win:hover {
+  #travel .win:hover,
+  #cz-food .win:hover,
+  #prague-food .win:hover {
     box-shadow: none;
   }
 
-  #travel .win-bar {
+  #travel .win-bar,
+  #cz-food .win-bar,
+  #prague-food .win-bar {
     cursor: default;
   }
 
