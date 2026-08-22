@@ -929,9 +929,10 @@
         win.style.width     = def.w + 'px';
         win.style.transform = 'rotate(' + def.r + 'deg)';
         win.style.zIndex    = i + 1;
-        win.dataset.lp     = def.lp;
-        win.dataset.t      = def.t;
-        win.dataset.center = def.center ? '1' : '';
+        win.dataset.lp       = def.lp;
+        win.dataset.t        = def.t;
+        win.dataset.center   = def.center ? '1' : '';
+        win.dataset.category = def.category || '';
 
         // Title bar
         var bar = document.createElement('div');
@@ -1069,12 +1070,58 @@
           label: label,
           src:   img,
           tip:   tip,
+          category: place.category,
           w: 258,
           lp: LP[col],
           t:  row * ROW_H + T_OFF[col],
           r:  ROTS[i - (i > 3 ? 2 : 0)] || 0
         });
       });
+
+      // Filter bar
+      var cats = [];
+      defs.forEach(function (d) { if (d.category && cats.indexOf(d.category) === -1) cats.push(d.category); });
+      var filterBar = document.createElement('div');
+      filterBar.className = 'food-filter-bar';
+      function makeChip(label, cat) {
+        var chip = document.createElement('div');
+        chip.className = 'food-filter-chip active';
+        chip.dataset.cat = cat;
+        var dot = document.createElement('span');
+        dot.className = 'food-filter-dot';
+        dot.style.background = cat ? (CAT_COLORS[cat] || '#111') : '#111';
+        chip.appendChild(dot);
+        chip.appendChild(document.createTextNode(label));
+        var catChips = function () { return Array.from(filterBar.querySelectorAll('.food-filter-chip[data-cat]:not([data-cat=""])')); };
+        chip.addEventListener('click', function () {
+          if (cat === '') {
+            var allActive = catChips().every(function (c) { return c.classList.contains('active'); });
+            filterBar.querySelectorAll('.food-filter-chip').forEach(function (c) { c.classList.toggle('active', !allActive); });
+          } else {
+            chip.classList.toggle('active');
+            var allChip = filterBar.querySelector('.food-filter-chip[data-cat=""]');
+            var allSelected = catChips().every(function (c) { return c.classList.contains('active'); });
+            allChip.classList.toggle('active', allSelected);
+          }
+          applyFilter();
+        });
+        filterBar.appendChild(chip);
+      }
+      makeChip('All', '');
+      cats.forEach(function (cat) { makeChip(cat, cat); });
+
+      function applyFilter() {
+        var activeCats = Array.from(filterBar.querySelectorAll('.food-filter-chip.active'))
+          .map(function (c) { return c.dataset.cat; })
+          .filter(function (c) { return c !== ''; });
+        var showAll = filterBar.querySelector('.food-filter-chip[data-cat=""]').classList.contains('active');
+        canvas.querySelectorAll('.win').forEach(function (win) {
+          var show = showAll || activeCats.indexOf(win.dataset.category) !== -1;
+          win.style.display = show ? '' : 'none';
+        });
+      }
+
+      section.insertBefore(filterBar, banner);
 
       buildGalleryInCanvas(canvas, defs);
     }

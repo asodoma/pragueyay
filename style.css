@@ -573,6 +573,52 @@ nav {
   text-underline-offset: 3px;
 }
 
+/* ─── Prague Food & Drink filter bar ───────────────── */
+
+.food-filter-bar {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 10px;
+  margin-bottom: 20px;
+}
+
+.food-filter-chip {
+  display: flex;
+  align-items: center;
+  gap: 7px;
+  padding: 7px 14px;
+  border: 1px solid var(--ink);
+  background: var(--bg);
+  cursor: pointer;
+  font-family: 'Roboto Mono', monospace;
+  font-size: 10px;
+  letter-spacing: 1.2px;
+  text-transform: uppercase;
+  color: var(--ink);
+  transition: background 0.12s, color 0.12s, box-shadow 0.12s;
+}
+
+.food-filter-chip:hover {
+  box-shadow: 3px 3px 0 var(--ink);
+}
+
+.food-filter-dot {
+  width: 8px;
+  height: 8px;
+  border-radius: 50%;
+  flex-shrink: 0;
+}
+
+.food-filter-chip.active {
+  background: var(--ink);
+  color: var(--bg);
+  box-shadow: 3px 3px 0 var(--ink);
+}
+
+.food-filter-chip.active .food-filter-dot {
+  box-shadow: 0 0 0 2px var(--bg);
+}
+
 /* ─── Prague Food & Drink banner ────────────────── */
 
 .food-banner {
