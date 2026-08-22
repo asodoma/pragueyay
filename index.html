@@ -539,6 +539,7 @@
     var mapInstance   = null;
     var activePinEl   = null;
     var mapMarkers    = [];
+    var mapActiveCats = {};
 
     function buildMapSection() {
       var section = document.getElementById('map');
@@ -570,19 +571,50 @@
 
       layout.appendChild(sidebar);
 
-      var legend = document.createElement('div');
-      legend.className = 'map-legend';
       var CAT_ORDER = ['food', 'drink', 'food / drink', 'coffee', 'activities', 'vibes'];
       var seenCats = {};
       PLACES.forEach(function (p) { seenCats[p.category] = true; });
-      CAT_ORDER.forEach(function (cat) {
-        if (!seenCats[cat]) return;
-        var item = document.createElement('span');
-        item.className = 'map-legend-item';
-        item.innerHTML = '<span class="map-legend-dot" style="background:' + (CAT_COLORS[cat] || '#111') + '"></span>' + cat;
-        legend.appendChild(item);
-      });
-      section.appendChild(legend);
+      var cats = CAT_ORDER.filter(function (c) { return seenCats[c]; });
+      cats.forEach(function (c) { mapActiveCats[c] = true; });
+
+      var filterBar = document.createElement('div');
+      filterBar.className = 'food-filter-bar';
+
+      function catChips() {
+        return Array.from(filterBar.querySelectorAll('.food-filter-chip[data-cat]:not([data-cat=""])'));
+      }
+
+      function makeMapChip(label, cat) {
+        var chip = document.createElement('div');
+        chip.className = 'food-filter-chip active';
+        chip.dataset.cat = cat;
+        var dot = document.createElement('span');
+        dot.className = 'food-filter-dot';
+        dot.style.background = cat ? (CAT_COLORS[cat] || '#111') : '#111';
+        chip.appendChild(dot);
+        chip.appendChild(document.createTextNode(label));
+        chip.addEventListener('click', function () {
+          if (cat === '') {
+            var allActive = catChips().every(function (c) { return c.classList.contains('active'); });
+            filterBar.querySelectorAll('.food-filter-chip').forEach(function (c) { c.classList.toggle('active', !allActive); });
+          } else {
+            chip.classList.toggle('active');
+            var allChip = filterBar.querySelector('.food-filter-chip[data-cat=""]');
+            var allSelected = catChips().every(function (c) { return c.classList.contains('active'); });
+            allChip.classList.toggle('active', allSelected);
+          }
+          cats.forEach(function (c) {
+            mapActiveCats[c] = filterBar.querySelector('.food-filter-chip[data-cat="' + c + '"]').classList.contains('active');
+          });
+          applyMapFilter();
+        });
+        filterBar.appendChild(chip);
+      }
+
+      makeMapChip('All', '');
+      cats.forEach(function (cat) { makeMapChip(cat, cat); });
+
+      section.appendChild(filterBar);
       section.appendChild(layout);
 
       var note = document.createElement('p');
@@ -630,6 +662,20 @@
 
       wrap.appendChild(list);
       section.appendChild(wrap);
+    }
+
+    function applyMapFilter() {
+      PLACES.forEach(function (place, i) {
+        var marker = mapMarkers[i];
+        if (!marker) return;
+        var el = marker.getElement();
+        if (!el) return;
+        el.style.display = mapActiveCats[place.category] === false ? 'none' : '';
+      });
+      var closeBtn = document.getElementById('map-sidebar-close');
+      if (closeBtn && closeBtn.style.display === 'none') {
+        showSidebarOverview();
+      }
     }
 
     function initMap() {
@@ -727,6 +773,7 @@
       var contentEl = document.getElementById('map-sidebar-content');
       var html = '<div class="map-ov-list">';
       PLACES.forEach(function (place, i) {
+        if (mapActiveCats[place.category] === false) return;
         var color = CAT_COLORS[place.category] || '#111';
         html += '<div class="map-ov-item" data-i="' + i + '">' +
           '<span class="map-ov-dot" style="background:' + color + '"></span>' +
