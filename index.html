@@ -353,6 +353,44 @@
         address: 'Mikulandská 2, Praha 1' },
     ];
 
+    // ── Songs about Prague places ────────────────────────────────────────
+    var SONGS = [
+      { place: 'Letná',                              artist: 'Plusminusnula',           song: 'Letná',
+        url: 'https://open.spotify.com/track/19LkQQsX5Zotc38iij8vdW?si=01fe4a53c0f746a5' },
+      { place: 'Letná',                              artist: 'GUFRAU',                   song: 'Letná',
+        url: 'https://open.spotify.com/track/4lZTOYmwETDSRLiBo1FmN8?si=fd9b8337a7aa433e' },
+      { place: 'Klub AVU',                           artist: 'GUFRAU',                   song: 'Letná',
+        url: 'https://open.spotify.com/track/4lZTOYmwETDSRLiBo1FmN8?si=7e5d4ef4335b499e' },
+      { place: 'Jericho',                            artist: 'GUFRAU',                   song: 'Letná',
+        url: 'https://open.spotify.com/track/4lZTOYmwETDSRLiBo1FmN8?si=7e5d4ef4335b499e' },
+      { place: 'Holešovice',                         artist: 'GUFRAU',                   song: 'Letná',
+        url: 'https://open.spotify.com/track/4lZTOYmwETDSRLiBo1FmN8?si=7e5d4ef4335b499e' },
+      { place: 'Smíchov',                            artist: 'GUFRAU',                   song: 'Letná',
+        url: 'https://open.spotify.com/track/4lZTOYmwETDSRLiBo1FmN8?si=7e5d4ef4335b499e' },
+      { place: 'Kasárny',                            artist: 'Mat213',                   song: 'Česko bez Š*ku',
+        url: 'https://open.spotify.com/track/290zorystG4iNtySw5Rok5?si=93d0d8e10b184bb9' },
+      { place: 'Žižkov',                             artist: 'Plusminusnula',           song: 'Žižkov',
+        url: 'https://open.spotify.com/track/3LNjH1JlOR8zi70Nef0slr?si=3a4320277a034dd4' },
+      { place: 'Prague',                             artist: 'Mat213',                   song: 'Party in the Prague',
+        url: 'https://open.spotify.com/track/4L4JOz95qtmgwI2J6ZYVH6?si=23020c28c1664810' },
+      { place: 'Praha',                              artist: 'Dollar Prync',             song: 'Praha',
+        url: 'https://open.spotify.com/track/1lnccFV2uHtQYUOGijPGaM?si=ea5ed59377294308' },
+      { place: 'Jíloviště',                          artist: 'Mat213',                   song: 'Vyrážim z Jíloviště',
+        url: 'https://open.spotify.com/track/0903IJPX0buPv28ifsIUJp?si=699213d019884268' },
+      { place: 'Pražským náměstí',                   artist: 'Mat213',                   song: 'Vyrážim z Jíloviště',
+        url: 'https://open.spotify.com/track/0903IJPX0buPv28ifsIUJp?si=699213d019884268' },
+      { place: 'Národní třída',                      artist: 'Metastavy',                song: 'Národní',
+        url: 'https://open.spotify.com/track/6Xa06ysYizyhOrW2aa79rS?si=442ee9b43a214543' },
+      { place: 'Šárka',                              artist: 'Děti mezi reprákama',       song: 'Počkám Na Kláru',
+        url: 'https://open.spotify.com/track/5SsHp4V5nPgTeijce9XzDx?si=f893570680324b69' },
+      { place: 'Letná',                              artist: 'post-hudba',               song: 'Smrt Letný (I, II, III & IV)',
+        url: 'https://open.spotify.com/track/0MIEnhvIZkJmsw9QTA7Hyc?si=4771813572b74022' },
+      { place: 'Modřany',                            artist: 'Mat213',                   song: '7teen',
+        url: 'https://open.spotify.com/track/1gQl2gxp4Ch9WxB8WB8Yu7?si=055dc42e79744019' },
+      { place: 'Palačák, Čechova čtvrť, Veletržák',  artist: 'Mat213',                   song: '7teen',
+        url: 'https://open.spotify.com/track/1gQl2gxp4Ch9WxB8WB8Yu7?si=055dc42e79744019' },
+    ];
+
     // ── Brno places ─────────────────────────────────────────────────────
     var BRNO_PLACES = [
       { name: 'William Thomas',      category: 'coffee',
@@ -560,6 +598,52 @@
       note.className = 'map-note';
       note.innerHTML = 'shoutout <a href="https://en.wikipedia.org/wiki/OpenStreetMap" target="_blank">OpenStreetMaps</a> – a free, crowdsourced digital map of the world';
       section.appendChild(note);
+
+      buildSongsSection(section);
+    }
+
+    // ── Songs about Prague places ────────────────────────────────────────
+    function buildSongsSection(section) {
+      var wrap = document.createElement('div');
+      wrap.className = 'songs-section';
+
+      var heading = document.createElement('h3');
+      heading.className = 'songs-heading';
+      heading.textContent = 'Songs about Prague places';
+      wrap.appendChild(heading);
+
+      var intro = document.createElement('p');
+      intro.className = 'songs-intro';
+      intro.innerHTML = 'A running list of songs that name-drop specific Prague spots — click one to listen on Spotify.';
+      wrap.appendChild(intro);
+
+      var list = document.createElement('div');
+      list.className = 'songs-list';
+
+      SONGS.forEach(function (s) {
+        var row = document.createElement('a');
+        row.className = 'song-row';
+        row.href = s.url;
+        row.target = '_blank';
+        row.rel = 'noopener';
+
+        var icon = document.createElement('span');
+        icon.className = 'song-play-icon';
+        icon.innerHTML = '&#9658;';
+        row.appendChild(icon);
+
+        var text = document.createElement('span');
+        text.className = 'song-text';
+        text.innerHTML =
+          '<span class="song-place">' + s.place + '</span>' +
+          '<span class="song-meta"><span class="song-artist">' + s.artist + '</span> — ' + s.song + '</span>';
+        row.appendChild(text);
+
+        list.appendChild(row);
+      });
+
+      wrap.appendChild(list);
+      section.appendChild(wrap);
     }
 
     function initMap() {
