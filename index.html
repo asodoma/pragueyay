@@ -366,19 +366,33 @@
         lat: 50.0798000, lng: 14.4385000,
         img: 'assets/activities/riegrovy.webp',
         address: 'Riegrovy sady, Praha 2/3' },
+      { name: 'Café Rybka',          category: 'drink',
+        lat: 50.0819000, lng: 14.4166000,
+        img: 'assets/prague-gastro/caferybka.jpg',
+        address: 'Betlémská 8, Praha 1' },
+      { name: 'Pho Anděl',           category: 'food',
+        lat: 50.0705000, lng: 14.4030000,
+        img: 'assets/prague-gastro/phoandel.jpg',
+        address: 'Nádražní, Praha 5' },
+      { name: 'Café Emauzy',         category: 'drink',
+        lat: 50.0730000, lng: 14.4180000,
+        img: 'assets/prague-gastro/emauzy.jpeg',
+        address: 'Vyšehradská, Praha 2' },
     ];
 
     // ── Songs about Prague places ────────────────────────────────────────
     var SONGS = [
       { places: ['Letná district'],                                                     artist: 'Plusminusnula',      song: 'Letná',
         url: 'https://open.spotify.com/track/19LkQQsX5Zotc38iij8vdW?si=01fe4a53c0f746a5' },
+      { places: ['Café Emauzy'],                                                        artist: 'Mat213 & GUFRAU',     song: 'Emauzy',
+        url: 'https://open.spotify.com/track/7GYoxHqjXjMnpIJfP6dTfe?si=42829adc876b4150' },
       { places: ['Letná district', 'Klub AVU', 'Jericho', 'Holešovice', 'Smíchov district'], artist: 'GUFRAU',              song: 'Letná',
         url: 'https://open.spotify.com/track/4lZTOYmwETDSRLiBo1FmN8?si=7e5d4ef4335b499e' },
       { places: ['Kasárny Karlín'],                                                     artist: 'Mat213',              song: 'Česko bez Š*ku',
         url: 'https://open.spotify.com/track/290zorystG4iNtySw5Rok5?si=93d0d8e10b184bb9' },
       { places: ['Žižkov'],                                                            artist: 'Plusminusnula',      song: 'Žižkov',
         url: 'https://open.spotify.com/track/3LNjH1JlOR8zi70Nef0slr?si=3a4320277a034dd4' },
-      { places: ['Prague'],                                                            artist: 'Mat213',              song: 'Party in the Prague',
+      { places: ['Praha'],                                                             artist: 'Mat213',              song: 'Party in the Prague',
         url: 'https://open.spotify.com/track/4L4JOz95qtmgwI2J6ZYVH6?si=23020c28c1664810' },
       { places: ['Praha'],                                                             artist: 'Dollar Prync',        song: 'Praha',
         url: 'https://open.spotify.com/track/1lnccFV2uHtQYUOGijPGaM?si=ea5ed59377294308' },
@@ -766,6 +780,7 @@
           ? '<img class="map-sidebar-img" src="' + place.img + '" alt="' + place.name + '">'
           : '<div class="map-sidebar-no-img" style="border-color:' + color + '"><span style="color:' + color + ';font-size:36px;font-family:\'Roboto Mono\',monospace;font-weight:700">' + place.name.charAt(0) + '</span></div>') +
         '<div class="map-sidebar-body">' +
+        '<button class="map-sidebar-backlink" id="map-sidebar-backlink">&larr; back to list</button>' +
         '<div class="map-sidebar-cat" style="color:' + color + '">' + place.category + '</div>' +
         '<div class="map-sidebar-name">' + place.name + '</div>' +
         (place.desc ? '<div class="map-sidebar-desc">' + place.desc + '</div>' : '') +
@@ -776,6 +791,7 @@
         '</div>' +
         '</div>';
       document.getElementById('map-sidebar-close').style.display = 'block';
+      document.getElementById('map-sidebar-backlink').addEventListener('click', showSidebarOverview);
     }
 
     function showSidebarOverview() {
@@ -931,6 +947,7 @@
           ? '<img class="map-sidebar-img" src="' + place.img + '" alt="' + place.name + '">'
           : '<div class="map-sidebar-no-img" style="border-color:' + color + '"><span style="color:' + color + ';font-size:36px;font-family:\'Roboto Mono\',monospace;font-weight:700">' + place.name.charAt(0) + '</span></div>') +
         '<div class="map-sidebar-body">' +
+        '<button class="map-sidebar-backlink" id="brno-sidebar-backlink">&larr; back to list</button>' +
         '<div class="map-sidebar-cat" style="color:' + color + '">' + place.category + '</div>' +
         '<div class="map-sidebar-name">' + place.name + '</div>' +
         (place.desc ? '<div class="map-sidebar-desc">' + place.desc + '</div>' : '') +
@@ -940,6 +957,7 @@
         '<a class="map-sidebar-gmaps" href="' + gmapsUrl + '" target="_blank">↗ open in Google Maps</a>' +
         '</div></div>';
       document.getElementById('brno-sidebar-close').style.display = 'block';
+      document.getElementById('brno-sidebar-backlink').addEventListener('click', showBrnoSidebarOverview);
     }
 
     function showBrnoSidebarOverview() {
