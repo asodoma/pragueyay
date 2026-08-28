@@ -449,6 +449,27 @@ nav {
   color: var(--ink);
 }
 
+.map-sidebar-backlink {
+  display: inline-flex;
+  align-items: center;
+  gap: 5px;
+  background: none;
+  border: none;
+  padding: 0;
+  margin-bottom: 14px;
+  font-family: 'Roboto Mono', monospace;
+  font-size: 9px;
+  letter-spacing: 2px;
+  text-transform: uppercase;
+  color: #aaa;
+  cursor: pointer;
+  transition: color 0.15s ease;
+}
+
+.map-sidebar-backlink:hover {
+  color: var(--ink);
+}
+
 .map-sidebar-cat {
   font-size: 9px;
   letter-spacing: 2.5px;
